@@ -6,7 +6,8 @@ mongoose.connect('mongodb://localhost/users', function(err){
 	if(!err){
 		console.log('connect to mongodb');
 	}else{
-		throw err;
+		console.log('failed connect to mongodb');
+		//throw err;
 	}
 });
 var Schema = mongoose.Schema, 
