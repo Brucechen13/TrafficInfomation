@@ -2,7 +2,17 @@ var express = require('express');
 var router = express.Router();
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/users', function(err){
+
+// default database config
+var host = 'mongodb://localhost/users';
+
+// read database config form VCAP_SERVICES env
+if (process.env.VCAP_SERVICES) {
+  var mongodb_config = JSON.parse(process.env.VCAP_SERVICES).mongodb[0].credentials;
+  host = mongodb_config.host;
+  console.log('connect to coding net mongodb')
+}
+mongoose.connect(host, function(err){
 	if(!err){
 		console.log('connect to mongodb');
 	}else{
@@ -21,6 +31,7 @@ var User = mongoose.model('User', User);
 router.get('/', function(req, res) {
   User.find({}, function(err, docs){
 	 console.log(docs); 
+	 res.send(docs);
   });
 });
 router.get('/add', function(req, res) {
@@ -28,6 +39,7 @@ router.get('/add', function(req, res) {
 	user.save(function(err){
 		if(!err){
 			console.log('add new user');
+			res.send('add new user');
 		}else{
 			throw err;
 		}
