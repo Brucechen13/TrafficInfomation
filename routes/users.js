@@ -1,4 +1,6 @@
 var express = require('express');
+var http = require('http');
+var url = require('url');
 var router = express.Router();
 
 var mongoose = require('mongoose');
@@ -17,15 +19,15 @@ mongoose.connect(host, function(err){
 		console.log('connect to mongodb');
 	}else{
 		console.log('failed connect to mongodb');
-		//throw err;
+		throw err;
 	}
 });
 var Schema = mongoose.Schema, 
 	ObjectId = Schema.ObjectId;
 var User = new Schema({
-	name:String
+	name:{type:String}
 });
-var User = mongoose.model('User', User);
+var User = mongoose.model('user', User);
 
 /* GET users listing. */
 router.get('/', function(req, res) {
@@ -35,7 +37,7 @@ router.get('/', function(req, res) {
   });
 });
 router.get('/add', function(req, res) {
-	var user = new User(req.params.name);
+	var user = new User({name:req.param('name')});
 	user.save(function(err){
 		if(!err){
 			console.log('add new user');
