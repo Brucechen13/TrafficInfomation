@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">公共交通平台</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_upload_info">UploadInfo</string>
-    <string name="title_activity_user_info">UserInfo</string>
-    <string name="title_activity_update_info">UpdateInfo</string>
-    <string name="title_activity_user_info_view">UserInfoView</string>
+    <string name="app_name">分享交通</string>
+    <string name="text_tab_message">消息</string>
+    <string name="text_tab_service">服务</string>
+    <string name="text_tab_profile">个人</string>
+    <string name="text_tab_setting">设置</string>
+    <string name="button_backward">返回</string>
+    <string name="button_submit">提交</string>
+    <string name="text_exit">退出</string>
+    <string name="edit_user">编辑个人资料</string>
+    
+
+    <!-- 闪屏文字提示 -->
+    <string name="loadinginfo">登陆中...</string>
+    <string name="initsystemdataexception">登陆失败...</string>
+    <string name="dataloadend">登陆成功，欢迎回来</string>
+    <string name="userloadend">初次登陆，欢迎使用</string>
 
 </resources>

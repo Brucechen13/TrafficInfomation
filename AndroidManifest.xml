@@ -22,41 +22,58 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Theme.White.NoTitleBar" >
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="0d8ce223a6cc527b1b2b6ff4ce23f69e" />
-
+        
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".UploadInfo"
-            android:label="@string/title_activity_upload_info"
+            android:name=".MainActivity">
+            
+        </activity>
+        <activity
+            android:name=".msg.UploadInfo"
             android:parentActivityName=".MainActivity" >
         </activity>
-        <activity
-            android:name=".UserInfo"
-            android:label="@string/title_activity_user_info" >
+        <activity android:name=".msg.UpdateMsg" >
         </activity>
-        <activity
-            android:name=".UpdateInfo"
-            android:label="@string/title_activity_update_info" >
+        <activity android:name=".user.UserInfoView" >
         </activity>
-        <activity
-            android:name=".UserInfoView"
-            android:label="@string/title_activity_user_info_view" >
+        <activity android:name=".msg.TraffficMsgDetail" >
         </activity>
+        
+        <!--QQlogin  -->
         <activity
-            android:name=".InfoDetail"
-            android:label="@string/title_activity_user_info_view" >
-        </activity>
+	       android:name="com.tencent.tauth.AuthActivity"
+	       android:noHistory="true"
+	       android:launchMode="singleTask" >
+	    <intent-filter>
+	           <action android:name="android.intent.action.VIEW" />
+	       	<category android:name="android.intent.category.DEFAULT" />
+	       	<category android:name="android.intent.category.BROWSABLE" />
+	           <data android:scheme="tencent1104503342" />
+	    </intent-filter>
+	 </activity>
+        <activity
+            android:name="com.tencent.open.yyb.AppbarActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name="com.tencent.connect.avatar.ImageActivity" />
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
     </application>
 
 </manifest>

@@ -3,208 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f2f2f2"
-    android:orientation="vertical"
->
-
-   <include
-		android:id="@+id/one_title"
-        layout="@layout/title_bar" />
-    
-   
-   
-   <RelativeLayout
-        android:id="@+id/mime_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="110dip"      
-        android:clickable="true"
-          android:layout_marginTop="15dip"      
-        android:background="@drawable/usermainpage_bg_center" 
-      
-        >
-          <ImageView
-            android:id="@+id/mime_img"
-            android:layout_width="80dip"
-            android:layout_height="80dip"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dip"
-            android:background="@drawable/tou"
-            android:scaleType="fitXY" />
-          
-          <RelativeLayout 
-              
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:layout_centerVertical="true"
-         android:layout_toRightOf="@id/mime_img"  
-         android:layout_toLeftOf="@+id/job_img"
-              >
-          
-           <TextView
-        android:id="@+id/user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:layout_marginLeft="10dip"      
-        android:text="用户名"
-        android:textSize="16sp"
-        android:textColor="#202020"
-       
-        />
-           
-           
-           </RelativeLayout>
-           
-          
-          <ImageView
-                android:id="@+id/job_img"
-            	android:layout_width="wrap_content"
-        		android:layout_height="wrap_content"  
-        		android:layout_marginRight="10dip"      	     	
-        		android:scaleType="matrix"
-        		android:layout_centerVertical="true"
-        		android:layout_alignParentRight="true"
-        		android:src="@drawable/mm_submenu" />
-              
-       
-
-          </RelativeLayout>
-   
-   
-   
-        <LinearLayout 
-            
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-          android:layout_marginTop="15dip"      
-        android:background="@drawable/usermainpage_bg_center" 
-        android:orientation="vertical"  
-            >
-    
-          <RelativeLayout
-              android:id="@+id/mime_guiji"
-              android:layout_width="fill_parent"
-              android:layout_height="42dip"
-              android:clickable="true" >
-
-          <ImageView
-              android:id="@+id/mime_guiji_img"
-              android:layout_width="36.0dip"
-              android:layout_height="36.0dip"
-              android:layout_centerVertical="true"
-              android:layout_marginLeft="10dip"
-              android:background="@drawable/ic_mine_gallery"
-              android:scaleType="fitXY" />
-
-           <TextView
-               android:id="@+id/guiji_text"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_centerVertical="true"
-               android:layout_marginLeft="10dip"
-               android:layout_toRightOf="@id/mime_guiji_img"
-               android:text="我的轨迹"
-               android:textColor="#202020"
-               android:textSize="16sp" />
-
-          <ImageView
-              android:id="@+id/row_guiji_img"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentRight="true"
-              android:layout_centerVertical="true"
-              android:layout_marginRight="10dip"
-              android:scaleType="matrix"
-              android:src="@drawable/mm_submenu" />
-
-          </RelativeLayout>
-          
-          <ImageView 
-              
-             android:layout_width="fill_parent"
-             android:layout_height="1dip"    
-             android:background="@drawable/line"
-             android:layout_marginLeft="60dip" 
-              
-              />
-          
-          <RelativeLayout
-              android:id="@+id/mime_shangchuan"
-              android:layout_width="fill_parent"
-              android:layout_height="42dip"
-              android:clickable="true" >
-
-          <ImageView
-              android:id="@+id/mime__shangchuan_img"
-              android:layout_width="36.0dip"
-              android:layout_height="36.0dip"
-              android:layout_centerVertical="true"
-              android:layout_marginLeft="10dip"
-              android:background="@drawable/ic_mine_feed"
-              android:scaleType="fitXY" />
-
-           <TextView
-               android:id="@+id/shangchuan_text"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_centerVertical="true"
-               android:layout_marginLeft="10dip"
-               android:layout_toRightOf="@id/mime__shangchuan_img"
-               android:text="上传消息"
-               android:textColor="#202020"
-               android:textSize="16sp" />
-
-          <ImageView
-              android:id="@+id/row_shangchuan_img"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentRight="true"
-              android:layout_centerVertical="true"
-              android:layout_marginRight="10dip"
-              android:scaleType="matrix"
-              android:src="@drawable/mm_submenu" />
-
-          </RelativeLayout>
-          
-          <RelativeLayout
-              android:id="@+id/mime_pinglun"
-              android:layout_width="fill_parent"
-              android:layout_height="42dip"
-              android:clickable="true" >
-
-          <ImageView
-              android:id="@+id/mime_pinglun_img"
-              android:layout_width="36.0dip"
-              android:layout_height="36.0dip"
-              android:layout_centerVertical="true"
-              android:layout_marginLeft="10dip"
-              android:background="@drawable/chat_addition_activity_nor"
-              android:scaleType="fitXY" />
-
-           <TextView
-               android:id="@+id/pinglun_text"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_centerVertical="true"
-               android:layout_marginLeft="10dip"
-               android:layout_toRightOf="@id/mime_pinglun_img"
-               android:text="评论交流"
-               android:textColor="#202020"
-               android:textSize="16sp" />
-
-          <ImageView
-              android:id="@+id/row_pinglun_img"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentRight="true"
-              android:layout_centerVertical="true"
-              android:layout_marginRight="10dip"
-              android:scaleType="matrix"
-              android:src="@drawable/mm_submenu" />
-
-          </RelativeLayout>
-   
- </LinearLayout>
-   
-  
+    android:orientation="vertical">
   <LinearLayout 
             
         android:layout_width="fill_parent"
@@ -252,7 +51,11 @@
 
                 </RelativeLayout>
                 
-      
+      <View 
+                     android:layout_width="fill_parent" 
+                     android:layout_height="1dip"  
+                      android:background="@drawable/line"
+                    />
       <RelativeLayout
           android:layout_width="fill_parent"
           android:layout_height="42dip"
@@ -289,7 +92,11 @@
                         android:scaleType="matrix" />
 
                 </RelativeLayout>
-                
+            <View 
+                     android:layout_width="fill_parent" 
+                     android:layout_height="1dip"  
+                      android:background="@drawable/line"
+                    />    
      <RelativeLayout
          android:id="@+id/mime_about"
          android:layout_width="fill_parent"
@@ -334,6 +141,24 @@
    
        
 </LinearLayout>
+
+  <LinearLayout
+            android:id="@+id/layout_TABLE2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/table_margin"
+            android:background="@color/table_background"
+            android:padding="@dimen/table_padding" >
+
+            <Button
+                android:id="@+id/layout_exit"
+                style="@style/text_black_18"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/row_height"
+                android:background="@drawable/row_selector"
+                android:gravity="center_vertical|center"
+                android:text="@string/text_exit" />
+        </LinearLayout>
     
     
    

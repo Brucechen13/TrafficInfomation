@@ -169,7 +169,7 @@
                     android:textColor="@color/gray"
                     android:textSize="14.0sp" />  
              <TextView
-                    android:id="@+id/place_tv"
+                    android:id="@+id/area_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" 
                     android:layout_toRightOf="@id/from"                   
@@ -181,7 +181,7 @@
                     android:id="@+id/time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" 
-                    android:layout_toRightOf="@id/place_tv"  
+                    android:layout_toRightOf="@id/area_tv"  
                     android:layout_marginLeft="5dip"               
                     android:text="09:35"
                     android:textColor="#7888a9"
