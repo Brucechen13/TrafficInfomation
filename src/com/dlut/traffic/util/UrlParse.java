@@ -40,6 +40,15 @@ public class UrlParse {
 		}
 		return false;
 	}
+	
+	/**
+	 * 
+	 * @param args
+	 * @return
+	 */
+	public static String ParseUrl(String args){
+		return args.replace(" ", "%20");
+	}
 
 
 }

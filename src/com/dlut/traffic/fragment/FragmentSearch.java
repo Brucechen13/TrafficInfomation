@@ -1,22 +1,44 @@
 package com.dlut.traffic.fragment;
 
+import java.io.Console;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TimeZone;
 
+import com.dlut.traffic.LoginActivity;
 import com.dlut.traffic.R;
-import com.dlut.traffic.adapter.UploadInfoAdapter;
+import com.dlut.traffic.adapter.MsgBean;
+import com.dlut.traffic.adapter.MsgsAdapter;
 import com.dlut.traffic.util.CommonUtil;
+import com.dlut.traffic.util.ServerUtil;
+import com.dlut.traffic.util.UrlParse;
+import com.dlut.traffic.util.Util;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonArray;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
+import android.R.integer;
 import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,40 +49,111 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class FragmentSearch extends BaseFragment {
-	
+
 	public static final int HTTP_REQUEST_SUCCESS = -1;
 	public static final int HTTP_REQUEST_ERROR = 0;
 
-	private TextView tv;
+	private TextView hint;
 	private PullToRefreshListView msgList = null;
-	private UploadInfoAdapter adapter;
+	private MsgsAdapter adapter;
+	private int offset = 0;
+	
+	private Date date;
+	private static SimpleDateFormat sfd = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_search, container, false);
+		View rootView = inflater.inflate(R.layout.fragment_search, container,
+				false);
+		return rootView;
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		adapter = new UploadInfoAdapter(getView().getContext(), getSimulationNews(10));
-		//ListView lt = (ListView)getView().findViewById(R.id.myList);
-		//lt.setAdapter(adapter);
-		msgList = (PullToRefreshListView) getView()
-				.findViewById(R.id.msgList);
-		initPullToRefreshListView(msgList, adapter);
+
+		msgList = (PullToRefreshListView) getView().findViewById(R.id.msgList);
+		hint = (TextView) getView().findViewById(R.id.hint);
 		
+		adapter = new MsgsAdapter(getView().getContext(),
+				getMsgs(null));
+		initPullToRefreshListView(msgList, adapter);
 
 	}
 
-	private void initPullToRefreshListView(PullToRefreshListView msgList2,
+	private void initPullToRefreshListView(PullToRefreshListView msgList,
 			BaseAdapter adapter) {
 		// TODO Auto-generated method stub
-		msgList2.setMode(Mode.BOTH);
-		msgList2.setOnRefreshListener(new MyOnRefreshListener2(msgList2));
-		msgList2.setAdapter(adapter);
-		
+		Log.d("traffic", "create list");
+		msgList.setMode(Mode.BOTH);
+		msgList.setOnRefreshListener(new MyOnRefreshListener2(msgList));
+		msgList.setAdapter(adapter);
+		date = new Date();
+		loadData();
+	}
+	
+	private void loadData(){
+		hint.setText(R.string.listloading);
+		Ion.with(FragmentSearch.this)
+		.load(String.format("%s?skip=%s", ServerUtil.getMsgsUrl, offset))
+		.asJsonArray().setCallback(new FutureCallback<JsonArray>() {
+
+			@Override
+			public void onCompleted(Exception arg0, JsonArray arg1) {
+				// TODO Auto-generated method stub
+				if (arg0 != null) {
+					Log.d("traffic", arg0.toString());
+					Toast.makeText(getActivity(), "请检查网络",
+							Toast.LENGTH_SHORT).show();
+				}else if(arg1.size()==0){
+					Toast.makeText(getActivity(), "已经没有数据啦",
+							Toast.LENGTH_SHORT).show();
+				}else{
+					adapter.addNews(getMsgs(arg1));
+					offset+=arg1.size();
+				}
+				adapter.notifyDataSetChanged();
+				msgList.onRefreshComplete();   
+				hint.setText(R.string.listshow);
+			}
+		});
+	}
+	
+	private void loadNewestData(){
+		hint.setText(R.string.listloading);
+		String time = sfd.format(date); 
+		time = UrlParse.ParseUrl(time);
+		Log.d("traffic", time);
+		Ion.with(FragmentSearch.this)
+		.load(String.format("%s?date=%s", ServerUtil.getNewestMsgsUrl, time))
+		.asJsonArray().setCallback(new FutureCallback<JsonArray>(){
+
+			@Override
+			public void onCompleted(Exception arg0, JsonArray arg1) {
+				// TODO Auto-generated method stub
+				if (arg0 != null) {
+					Log.d("traffic", arg0.toString());
+					Toast.makeText(getActivity(), "请检查网络",
+							Toast.LENGTH_SHORT).show();
+				}else if(arg1.size()==0){
+					Toast.makeText(getActivity(), "已经没有数据啦",
+							Toast.LENGTH_SHORT).show();
+				}else{
+					date = new Date();
+					offset+=arg1.size();
+					adapter.addFirstNews(getMsgs(arg1));
+				}
+				adapter.notifyDataSetChanged();	
+				msgList.onRefreshComplete();  
+				hint.setText(R.string.listshow);
+			}
+		});
 	}
 
 	class MyOnRefreshListener2 implements OnRefreshListener2<ListView> {
@@ -80,16 +173,45 @@ public class FragmentSearch extends BaseFragment {
 							| DateUtils.FORMAT_ABBREV_ALL);
 
 			refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
-			new GetNewsTask(mPtflv).execute();
+			loadNewestData();
 
 		}
 
 		@Override
 		public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
 			// 上拉加载
-			new GetNewsTask(mPtflv).execute();
+			// new GetNewsTask(mPtflv).execute();
+			loadData();
 		}
 
+	}
+	
+	public ArrayList<MsgBean> getMsgs(JsonArray res) {
+		ArrayList<MsgBean> ret = new ArrayList<MsgBean>();
+		if(res == null){
+			return ret;
+		}
+		for (int i = 0; i < res.size(); i++) {
+			JsonElement je = res.get(i);
+			JsonObject jo = je.getAsJsonObject();
+			Log.d("traffic", jo.get("user").getAsJsonObject().get("name").getAsString());
+			Date date = Util.parseISODate(jo.get("time").getAsString());
+			String[] times = date.toLocaleString().split(" ");
+			MsgBean msg = new MsgBean(jo.get("_id").getAsString(), 
+					jo.get("user").getAsJsonObject().get("_id").getAsString(),
+					jo.get("user").getAsJsonObject().get("name").getAsString(), 
+					jo.get("user").getAsJsonObject().get("toupic").getAsString(), 
+					times[0], 
+					jo.get("content").getAsJsonObject().get("city").getAsString()+" "+
+					jo.get("content").getAsJsonObject().get("road").getAsString()+" "+
+					jo.get("content").getAsJsonObject().get("tra_level").getAsString(), 
+					times[1], 
+					jo.get("content").getAsJsonObject().get("address").getAsString(), 
+					jo.get("upCount").getAsString(),
+					jo.get("ctCount").getAsString());
+			ret.add(msg);
+		}
+		return ret;
 	}
 	
 	class GetNewsTask extends AsyncTask<String, Void, Integer> {
@@ -117,7 +239,7 @@ public class FragmentSearch extends BaseFragment {
 			super.onPostExecute(result);
 			switch (result) {
 			case HTTP_REQUEST_SUCCESS:
-				adapter.addNews(getSimulationNews(10));
+				//adapter.addNews(getMsgs(res)(10));
 				adapter.notifyDataSetChanged();
 				break;
 			case HTTP_REQUEST_ERROR:
@@ -129,22 +251,6 @@ public class FragmentSearch extends BaseFragment {
 		}
 
 	}
-	
-	public ArrayList<HashMap<String, String>> getSimulationNews(int n) {
-		ArrayList<HashMap<String, String>> ret = new ArrayList<HashMap<String, String>>();
-		HashMap<String, String> hm;
-		for (int i = 0; i < n; i++) {
-			hm = new HashMap<String, String>();
-			hm.put("username", "chenchi");
-			hm.put("contenttime", "2015-1-3");
-			hm.put("content", "halou");
-			hm.put("time", "09:30");
-			hm.put("place", "某地");
-			hm.put("good_num", "13");
-			hm.put("comment_num", "31");
-			ret.add(hm);
-		}
-		return ret;
-	}
+
 
 }

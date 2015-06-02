@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class UpdateMsg extends TitleActivity implements OnClickListener {
+public class UpdateInfo extends TitleActivity implements OnClickListener {
 
 	@Override
 	protected void onBackward(View backwardView) {
@@ -39,18 +39,15 @@ public class UpdateMsg extends TitleActivity implements OnClickListener {
 		Bundle bundle = new Bundle();
 		bundle.putString("result", resultcontent);
 		resultIntent.putExtras(bundle);
-		this.setResult(code, resultIntent);
+		this.setResult(RESULT_OK, resultIntent);
 
 		this.finish();
 
 	}
 
 	private EditText info_et;
-	private String loginid;
 
 	private String mimecontent;
-	private TextView editdetail_back;
-	private TextView editdetail_finish;
 	private int code;
 	private TextView edit_title;
 	private String titleString;
@@ -70,15 +67,14 @@ public class UpdateMsg extends TitleActivity implements OnClickListener {
 	private void setupViews() {
 		// requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.update_info);
-		setTitle(R.string.edit_user);
 		showBackwardView(R.string.button_backward, true);
 		showForwardView(R.string.button_submit,true);
 		Intent intent = this.getIntent();
 		Bundle bundle = intent.getExtras();
 		mimecontent = bundle.getString("mimecontent");
-		code = bundle.getInt("resultcode");
 		titleString = bundle.getString("title");
 		num = bundle.getInt("num");
+		setTitle(titleString);
 
 		edit_num = (TextView) findViewById(R.id.edit_num);
 
@@ -103,7 +99,6 @@ public class UpdateMsg extends TitleActivity implements OnClickListener {
 					edit_num.setTextColor(getResources().getColor(R.color.gray));
 					edit_num.setText(String.valueOf(len) + "/" + num);
 				}
-
 				else {
 					len = len - num;
 					edit_num.setTextColor(Color.RED);
@@ -117,13 +112,11 @@ public class UpdateMsg extends TitleActivity implements OnClickListener {
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
 				// TODO Auto-generated method stub
-
 			}
 
 			@Override
 			public void afterTextChanged(Editable s) {
 				// TODO Auto-generated method stub
-
 			}
 		});
 	}

@@ -1,552 +1,400 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
- 	android:padding="@dimen/content_padding"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#dedede"
-    android:orientation="vertical" >
-    
+    android:orientation="vertical"
+    android:padding="@dimen/content_padding" >
 
-    
-    <ScrollView 
-       	 android:layout_width="fill_parent"
-         android:layout_height="wrap_content" 
-         android:scrollbars="none"
-        >
-    
-    <LinearLayout 
-      			  	android:layout_width="fill_parent"
-            	    android:layout_height="wrap_content"  
-            	    android:background="@drawable/usermainpage_bg_center" 
-      			    android:orientation="vertical"
-      			    >	
-
-      <LinearLayout 
-            
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:layout_marginTop="15dip"      
-        android:background="@null" 
-        android:orientation="vertical"  
-            >   
-         <View 
-                     android:layout_width="fill_parent" 
-                     android:layout_height="1dip"  
-                      android:background="@drawable/line"
+        android:layout_height="wrap_content"
+        android:scrollbars="none" >
 
-                    />	
+       <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/usermainpage_bg_center"
+            android:orientation="vertical" >
 
-   <RelativeLayout
-        android:id="@+id/tou_rl"
-        android:layout_width="fill_parent"
-        android:layout_height="80dip"
-        android:background="@null"
-        android:clickable="true"
-        android:orientation="horizontal" >
-
-         <TextView
-        android:id="@+id/tou_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-        android:drawableLeft="@drawable/ic_profile_nickname_normal"
-        android:drawablePadding="4dp"
-        android:duplicateParentState="true"
-        android:gravity="center_vertical"
-        android:layout_centerVertical="true"   
-        android:text="头 像"
-        style="@style/text_black_18"/>
-        
-        
-        <ImageView
-            android:id="@+id/detail_img"
-            android:layout_width="60.0dip"
-            android:layout_height="60.0dip"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="30dip" 
-           android:layout_alignParentRight="true"
-            android:background="@drawable/tou"
-            android:scaleType="fitXY" />
-
-  
-        
-
-              
-       
-
-          </RelativeLayout>
-    
-    
-      		           <View 
-                     android:layout_width="fill_parent" 
-                     android:layout_height="1dip"  
-                      android:background="@drawable/line"
-                      android:layout_marginLeft="60dip"
-                    />		
-      			
-      			<RelativeLayout
-      			    android:id="@+id/nick_rl"
-      			    android:layout_width="fill_parent"
-      			    android:layout_height="45dip"
-      			    android:background="@null"
-      			    android:clickable="true"
-      			    android:gravity="center_vertical" >
-            			 
-            			 <TextView
-            			     android:id="@+id/mtv_011"
-            			     android:layout_width="wrap_content"
-            			     android:layout_height="wrap_content"
-            			     android:layout_centerVertical="true"
-            			     android:text="昵 称"
-            			     style="@style/text_black_18"
-            			     android:drawableLeft="@drawable/ic_profile_nickname_normal"
-		                    android:drawablePadding="4dp"
-		                    android:duplicateParentState="true"
-		                    android:gravity="center_vertical" />
-            			
-            			 <TextView
-            			     android:id="@+id/nick_name"
-        					android:layout_width="wrap_content" 
-        					android:layout_height="wrap_content"
-        					android:layout_centerVertical="true"
-        					android:layout_marginLeft="28dip"
-        					android:layout_toRightOf="@id/mtv_011"
-        					android:text="比邻特"
-        					style="@style/text_18"/>      					
-      				</RelativeLayout>
-      				
-      			  <View 
-                     android:layout_width="fill_parent" 
-                     android:layout_height="1dip"  
-                      android:background="@drawable/line"
-                      android:layout_marginLeft="60dip"
-                    />		
-      			
-      			<RelativeLayout
-      			    android:id="@+id/sign_rl"
-      			    android:layout_width="fill_parent"
-      			    android:layout_height="45dip"
-      			    android:background="@null"
-      			    android:clickable="true"
-      			    android:gravity="center_vertical" >
-            			 
-            			 <TextView
-            			     android:id="@+id/mtv_01"
-            			     android:layout_width="wrap_content"
-            			     android:layout_height="wrap_content"
-            			     android:layout_centerVertical="true"
-            			     android:text="签 名"
-            			     style="@style/text_black_18"
-            			     android:drawableLeft="@drawable/ic_profile_nickname_normal"
-		                    android:drawablePadding="4dp"
-		                    android:duplicateParentState="true" />
-            			
-            			 <TextView
-            			     android:id="@+id/signature_tv"
-            			     android:layout_width="wrap_content"
-            			     android:layout_height="wrap_content"
-            			     android:layout_centerVertical="true"
-            			     android:layout_marginLeft="28dip"
-            			     android:layout_toRightOf="@id/mtv_01"
-            			     android:text="树叶落下"
-            			     style="@style/text_18" />
-
-						      					
-      				</RelativeLayout>
-      			  <View 
-                     android:layout_width="fill_parent" 
-                     android:layout_height="1dip"  
-                      android:background="@drawable/line"
-                      android:layout_marginLeft="60dip"/>		
-
-      			<RelativeLayout
-      			    android:id="@+id/score_rl"
-      			    android:layout_width="fill_parent"
-      			    android:layout_height="45dip"
-      			    android:background="@null"
-      			    android:clickable="true"
-      			    android:gravity="center_vertical" >
-            			 
-            			 <TextView
-            			     android:id="@+id/scoreText"
-            			     android:layout_width="wrap_content"
-            			     android:layout_height="wrap_content"
-            			     android:layout_centerVertical="true"
-            			     android:text="积 分"
-            			     style="@style/text_black_18"
-            			     android:drawableLeft="@drawable/ic_profile_nickname_normal"
-		                    android:drawablePadding="4dp"
-		                    android:duplicateParentState="true" />
-            			
-            <TextView
-                android:id="@+id/score_tv"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="28dip"
-                android:layout_toRightOf="@id/scoreText"
-                android:text="111"
-                style="@style/text_18" />
- 					
-      				</RelativeLayout>
-      			
-      				   <View 
-                     android:layout_width="fill_parent" 
-                     android:layout_height="1dip"  
-                      android:background="@drawable/line"
-                    />
-      				   
-      				   
-      				   
-      			               
-      		</LinearLayout>		
-      		
-      
-      <LinearLayout 
-            
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:layout_marginTop="15dip"      
-        android:background="@null" 
-        android:orientation="vertical"  
-            >  	
-      				  
-      			<View 
-                     android:layout_width="fill_parent" 
-                     android:layout_height="1dip"  
-                      android:background="@drawable/line"
-                    />  
-    
-          <RelativeLayout
-              android:id="@+id/guiji_rl"
-              android:layout_width="fill_parent"
-              android:layout_height="42dip"
-              android:clickable="true" >
+                android:background="@null"
+                android:orientation="vertical" >
 
-          <ImageView
-              android:id="@+id/mime_guiji_img"
-              android:layout_width="36.0dip"
-              android:layout_height="36.0dip"
-              android:layout_centerVertical="true"
-              android:layout_marginLeft="10dip"
-              android:background="@drawable/ic_mine_gallery"
-              android:scaleType="fitXY" />
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:background="@drawable/line" />
 
-           <TextView
-               android:id="@+id/guiji_text"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_centerVertical="true"
-               android:layout_marginLeft="10dip"
-               android:layout_toRightOf="@id/mime_guiji_img"
-               android:text="我的轨迹"
-               android:textColor="#202020"
-               android:textSize="16sp" />
+                <RelativeLayout
+                    android:id="@+id/tou_rl"
+                    android:layout_width="fill_parent"
+                    android:layout_height="80dip"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:orientation="horizontal" >
 
-          <ImageView
-              android:id="@+id/row_guiji_img"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentRight="true"
-              android:layout_centerVertical="true"
-              android:layout_marginRight="10dip"
-              android:scaleType="matrix"
-              android:src="@drawable/mm_submenu" />
+                    <TextView
+                        android:id="@+id/tou_text"
+                        style="@style/text_black_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@drawable/ic_profile_nickname_normal"
+                        android:drawablePadding="4dp"
+                        android:duplicateParentState="true"
+                        android:gravity="center_vertical"
+                        android:text="头 像" />
 
-          </RelativeLayout>
-          
-          <ImageView 
-              
-             android:layout_width="fill_parent"
-             android:layout_height="1dip"    
-             android:background="@drawable/line"
-             android:layout_marginLeft="60dip" 
-              
-              />
-          
-          <RelativeLayout
-              android:id="@+id/msg_rl"
-              android:layout_width="fill_parent"
-              android:layout_height="42dip"
-              android:clickable="true" >
+                    <ImageView
+                        android:id="@+id/detail_img"
+                        android:layout_width="60.0dip"
+                        android:layout_height="60.0dip"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/tou_img"
+                        android:scaleType="fitXY" />
 
-          <ImageView
-              android:id="@+id/mime__shangchuan_img"
-              android:layout_width="36.0dip"
-              android:layout_height="36.0dip"
-              android:layout_centerVertical="true"
-              android:layout_marginLeft="10dip"
-              android:background="@drawable/ic_mine_feed"
-              android:scaleType="fitXY" />
+                    <ImageView
+                        android:id="@+id/tou_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dip"
+                        android:scaleType="matrix"
+                        android:src="@drawable/mm_submenu" />
+                </RelativeLayout>
 
-           <TextView
-               android:id="@+id/shangchuan_text"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_centerVertical="true"
-               android:layout_marginLeft="10dip"
-               android:layout_toRightOf="@id/mime__shangchuan_img"
-               android:text="上传消息"
-               android:textColor="#202020"
-               android:textSize="16sp" />
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="60dip"
+                    android:background="@drawable/line" />
 
-          <ImageView
-              android:id="@+id/row_shangchuan_img"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentRight="true"
-              android:layout_centerVertical="true"
-              android:layout_marginRight="10dip"
-              android:scaleType="matrix"
-              android:src="@drawable/mm_submenu" />
+                <RelativeLayout
+                    android:id="@+id/nick_rl"
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dip"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:gravity="center_vertical" >
 
-          </RelativeLayout>
-          
-          <RelativeLayout
-              android:id="@+id/comment_rl"
-              android:layout_width="fill_parent"
-              android:layout_height="42dip"
-              android:clickable="true" >
+                    <TextView
+                        android:id="@+id/mtv_011"
+                        style="@style/text_black_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@drawable/ic_profile_nickname_normal"
+                        android:drawablePadding="4dp"
+                        android:duplicateParentState="true"
+                        android:gravity="center_vertical"
+                        android:text="昵 称" />
 
-          <ImageView
-              android:id="@+id/mime_pinglun_img"
-              android:layout_width="36.0dip"
-              android:layout_height="36.0dip"
-              android:layout_centerVertical="true"
-              android:layout_marginLeft="10dip"
-              android:background="@drawable/chat_addition_activity_nor"
-              android:scaleType="fitXY" />
+                    <TextView
+                        android:id="@+id/nick_name"
+                        style="@style/text_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="28dip"
+                        android:layout_toRightOf="@id/mtv_011" />
 
-           <TextView
-               android:id="@+id/pinglun_text"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_centerVertical="true"
-               android:layout_marginLeft="10dip"
-               android:layout_toRightOf="@id/mime_pinglun_img"
-               android:text="评论交流"
-               android:textColor="#202020"
-               android:textSize="16sp" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dip"
+                        android:scaleType="matrix"
+                        android:src="@drawable/mm_submenu" />
+                </RelativeLayout>
 
-          <ImageView
-              android:id="@+id/row_pinglun_img"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentRight="true"
-              android:layout_centerVertical="true"
-              android:layout_marginRight="10dip"
-              android:scaleType="matrix"
-              android:src="@drawable/mm_submenu" />
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="60dip"
+                    android:background="@drawable/line" />
 
-          </RelativeLayout>
-          
-          <View 
-                     android:layout_width="fill_parent" 
-                     android:layout_height="1dip"  
-                      android:background="@drawable/line"
-                    />
-   
- </LinearLayout>
-      				   
-      		 
-      			   <LinearLayout 
-            
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" 
-        android:layout_marginTop="15dip"      
-        android:background="@null" 
-        android:orientation="vertical"  
-            >  	
-      				  
-      			<View 
-                     android:layout_width="fill_parent" 
-                     android:layout_height="1dip"  
-                      android:background="@drawable/line"
-                    />  
-      			
-      			<RelativeLayout
-      			      android:id="@+id/sex_rl"
-            			android:layout_width="fill_parent"
-            			android:layout_height="45dip"           		
-            			android:gravity="center_vertical"
-            			android:clickable="true"
-            			android:background="@null" >
-            			 
-        				    
-            			 <TextView
-            			     android:id="@+id/mtv_02"
-        					android:layout_width="wrap_content" 
-        					android:layout_height="wrap_content"       				
-        					android:layout_centerVertical="true"
-        					android:text="性 别"
-        					style="@style/text_black_18"
-							android:drawableLeft="@drawable/ic_profile_nickname_normal"
-							android:drawablePadding="4dp"
-							android:duplicateParentState="true" />
-            			 
-            			 <TextView
-            			     android:id="@+id/gender_tv"
-            			     android:layout_width="wrap_content"
-            			     android:layout_height="wrap_content"
-            			     android:layout_centerVertical="true"
-            			     android:layout_marginLeft="28dip"
-            			     android:layout_toRightOf="@id/mtv_02"
-            			     android:text="男"
-            			     style="@style/text_18" />
-            			  						   					
-      				</RelativeLayout>	
-      				
-      			  <View 
-                     android:layout_width="fill_parent" 
-                     android:layout_height="1dip"  
-                      android:background="@drawable/line"
-                      android:layout_marginLeft="60dip"
-                    />
-      				
-      			<RelativeLayout
-      			        android:id="@+id/area_rl"
-            			android:layout_width="fill_parent"
-            			android:layout_height="45dip"           			
-            			android:gravity="center_vertical"
-            			android:clickable="true"
-            			android:background="@null" >
-            			 
-        				    
-            			 <TextView
-            			    android:id="@+id/mtv_03"
-        					android:layout_width="wrap_content" 
-        					android:layout_height="wrap_content"        				       					
-        					android:layout_centerVertical="true"
-        					android:text="现居地"
-        					style="@style/text_black_18"
-							android:drawableLeft="@drawable/ic_profile_nickname_normal"
-							android:drawablePadding="4dp"
-							android:duplicateParentState="true" />
-            			 
-            			 <TextView
-            			     android:id="@+id/area_tv"
-            			     android:layout_width="wrap_content"
-            			     android:layout_height="wrap_content"
-            			     android:layout_centerVertical="true"
-            			     android:layout_marginLeft="28dip"
-            			     android:layout_toRightOf="@id/mtv_03"
-            			     android:text="福建省 厦门市"
-            			     style="@style/text_18" />
-            			
-						      					
-      				</RelativeLayout>	
-      				
-      			  <View 
-                     android:layout_width="fill_parent" 
-                     android:layout_height="1dip"  
-                      android:background="@drawable/line"
-                      android:layout_marginLeft="60dip"
-                    />
-      			
-      			
-      				<RelativeLayout
-      				    android:id="@+id/signature_rl"
-            			android:layout_width="fill_parent"
-            			android:layout_height="wrap_content"
-            			android:gravity="center_vertical"
-            			android:clickable="true"
-            			android:background="@null" >
-            			 
-        				    
-            			 <TextView
-            			      android:id="@+id/geqian"
-        					android:layout_width="wrap_content" 
-        					android:layout_height="wrap_content"        				        			
-        					android:layout_centerVertical="true"
-        					android:text="职 业"
-        					style="@style/text_black_18"
-							android:drawableLeft="@drawable/ic_profile_nickname_normal"
-							android:drawablePadding="4dp"
-							android:duplicateParentState="true" />
-            			 
-            			  <TextView
-            			      android:id="@+id/write_tv"
-            			      android:layout_width="wrap_content"
-            			      android:layout_height="wrap_content"
-            			      android:layout_centerVertical="true"
-            			      android:layout_marginLeft="28dip"
-            			      android:layout_toRightOf="@id/geqian"
-            			      android:text="程序员"
-            			      android:textColor="#202020"
-            			      android:textSize="18sp"
-            			      style="@style/text_18" />
+                <RelativeLayout
+                    android:id="@+id/signature_rl"
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dip"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:gravity="center_vertical" >
 
-						      					
-      				</RelativeLayout>
-      			<View 
-                     android:layout_width="fill_parent" 
-                     android:layout_height="1dip"  
-                      android:background="@drawable/line"
+                    <TextView
+                        android:id="@+id/mtv_01"
+                        style="@style/text_black_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@drawable/ic_profile_nickname_normal"
+                        android:drawablePadding="4dp"
+                        android:duplicateParentState="true"
+                        android:text="签 名" />
 
-                    />
-      				</LinearLayout>
-      		
-      		
-    
-                 
-      			
-                   <LinearLayout 
-      			  	android:layout_width="fill_parent"
-            	    android:layout_height="wrap_content"  
-      			    android:layout_marginTop="15dip"
-      			    android:orientation="vertical"
-      			    >
-      			<View 
-                     android:layout_width="fill_parent" 
-                     android:layout_height="1dip"  
-                      android:background="@drawable/line"
+                    <TextView
+                        android:id="@+id/signature_tv"
+                        style="@style/text_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="28dip"
+                        android:layout_toRightOf="@id/mtv_01" />
 
-                    />	
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dip"
+                        android:scaleType="matrix"
+                        android:src="@drawable/mm_submenu" />
+                </RelativeLayout>
 
-      				<RelativeLayout
-      				    android:id="@+id/school_rl"
-      				    android:layout_width="fill_parent"
-      				    android:layout_height="wrap_content"
-      				    android:layout_marginTop="10dip"
-      				    android:background="@null"
-      				    android:clickable="true"
-      				    android:gravity="center_vertical" >
-            			 
-            			 <TextView
-            			     android:id="@+id/school"
-            			     android:layout_width="wrap_content"
-            			     android:layout_height="wrap_content"
-            			     android:layout_centerVertical="true"
-            			     android:text="公 司"
-            			     style="@style/text_black_18"
-							android:drawableLeft="@drawable/ic_profile_nickname_normal"
-							android:drawablePadding="4dp"
-							android:duplicateParentState="true" />
-            			 
-            			  <TextView
-            			      android:id="@+id/school_tv"
-            			      android:layout_width="wrap_content"
-            			      android:layout_height="wrap_content"
-            			      android:layout_centerVertical="true"
-            			      android:layout_marginLeft="28dip"
-            			      android:layout_toRightOf="@id/school"
-            			      android:text="华大"
-            			      style="@style/text_18" />	      					
-      				</RelativeLayout>
-      				
-      				 	
-      				<View 
-                     android:layout_width="fill_parent" 
-                     android:layout_height="1dip"  
-                      android:background="@drawable/line"
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="60dip"
+                    android:background="@drawable/line" />
 
-                    />	
-      			</LinearLayout>	
-                 
-                 
-  
-      		</LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/score_rl"
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dip"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:gravity="center_vertical" >
+
+                    <TextView
+                        android:id="@+id/scoreText"
+                        style="@style/text_black_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@drawable/ic_profile_nickname_normal"
+                        android:drawablePadding="4dp"
+                        android:duplicateParentState="true"
+                        android:text="积 分" />
+
+                    <TextView
+                        android:id="@+id/score_tv"
+                        style="@style/text_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="28dip"
+                        android:layout_toRightOf="@id/scoreText" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dip"
+                        android:scaleType="matrix"
+                        android:src="@drawable/mm_submenu" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:background="@drawable/line" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dip"
+                android:background="@null"
+                android:orientation="vertical" >
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:background="@drawable/line" />
+
+                <RelativeLayout
+                    android:id="@+id/gender_rl"
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dip"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:gravity="center_vertical" >
+
+                    <TextView
+                        android:id="@+id/mtv_02"
+                        style="@style/text_black_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@drawable/ic_profile_nickname_normal"
+                        android:drawablePadding="4dp"
+                        android:duplicateParentState="true"
+                        android:text="性 别" />
+
+                    <TextView
+                        android:id="@+id/gender_tv"
+                        style="@style/text_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="28dip"
+                        android:layout_toRightOf="@id/mtv_02" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dip"
+                        android:scaleType="matrix"
+                        android:src="@drawable/mm_submenu" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="60dip"
+                    android:background="@drawable/line" />
+
+                <RelativeLayout
+                    android:id="@+id/area_rl"
+                    android:layout_width="fill_parent"
+                    android:layout_height="45dip"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:gravity="center_vertical" >
+
+                    <TextView
+                        android:id="@+id/mtv_03"
+                        style="@style/text_black_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@drawable/ic_profile_nickname_normal"
+                        android:drawablePadding="4dp"
+                        android:duplicateParentState="true"
+                        android:text="现居地" />
+
+                    <TextView
+                        android:id="@+id/area_tv"
+                        style="@style/text_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="28dip"
+                        android:layout_toRightOf="@id/mtv_03" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dip"
+                        android:scaleType="matrix"
+                        android:src="@drawable/mm_submenu" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="60dip"
+                    android:background="@drawable/line" />
+
+                <RelativeLayout
+                    android:id="@+id/job_rl"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:gravity="center_vertical" >
+
+                    <TextView
+                        android:id="@+id/geqian"
+                        style="@style/text_black_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@drawable/ic_profile_nickname_normal"
+                        android:drawablePadding="4dp"
+                        android:duplicateParentState="true"
+                        android:text="职 业" />
+
+                    <TextView
+                        android:id="@+id/job_tv"
+                        style="@style/text_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="28dip"
+                        android:layout_toRightOf="@id/geqian" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dip"
+                        android:scaleType="matrix"
+                        android:src="@drawable/mm_submenu" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="60dip"
+                    android:background="@drawable/line" />
+
+                <RelativeLayout
+                    android:id="@+id/company_rl"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dip"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:gravity="center_vertical" >
+
+                    <TextView
+                        android:id="@+id/school"
+                        style="@style/text_black_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@drawable/ic_profile_nickname_normal"
+                        android:drawablePadding="4dp"
+                        android:duplicateParentState="true"
+                        android:text="公 司" />
+
+                    <TextView
+                        android:id="@+id/company_tv"
+                        style="@style/text_18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="28dip"
+                        android:layout_toRightOf="@id/school" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="10dip"
+                        android:scaleType="matrix"
+                        android:src="@drawable/mm_submenu" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:background="@drawable/line" />
+            </LinearLayout>
+
+        </LinearLayout>
     </ScrollView>
-    
-      		
- 
+
 </LinearLayout>

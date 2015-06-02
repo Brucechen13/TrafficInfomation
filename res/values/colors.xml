@@ -45,4 +45,7 @@
     <!-- 内容条目按下时的样式 -->
     <drawable name="pressed_bg">#f2f2f2</drawable>
     <drawable name="nopressed_bg">#fff</drawable>
+    
+    <drawable name="tra_unpressed_bg">#EEE9BF</drawable>
+    <drawable name="tra_pressed_bg">#8B2252</drawable>
 </resources>

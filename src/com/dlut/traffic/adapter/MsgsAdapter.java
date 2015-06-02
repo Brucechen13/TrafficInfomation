@@ -8,9 +8,12 @@ import java.util.Map;
 import com.dlut.traffic.R;
 import com.dlut.traffic.msg.TraffficMsgDetail;
 import com.dlut.traffic.user.UserInfoView;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,32 +25,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class UploadInfoAdapter extends BaseAdapter {
+public class MsgsAdapter extends BaseAdapter {
 	
 	private LayoutInflater mInflater;
-    private List<HashMap<String, String>> data;
+    private List<MsgBean> data;
     private Context mContext;
     private View view[] = null;
     
-    public UploadInfoAdapter(Context context, List<HashMap<String, String>> list)
+    public MsgsAdapter(Context context, List<MsgBean> list)
     {
         this.data = list;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mContext = context;
         //Constants.mImageLoader=new ImageLoader(context);
-    }
-    
-    class ImageData
-    {
-        public long imageID;
-        public String imageURL;
-        
-        public ImageData(long imageID, String imageURL)
-        {
-            super();
-            this.imageID = imageID;
-            this.imageURL = imageURL;
-        }
     }
     
     public class ViewHolder
@@ -57,6 +47,7 @@ public class UploadInfoAdapter extends BaseAdapter {
         public TextView contenttime;
         public TextView time;
         public TextView content;
+        public TextView area;
         public LinearLayout content_ll;
         public TextView good_num;
         public TextView comment_num;
@@ -102,6 +93,8 @@ public class UploadInfoAdapter extends BaseAdapter {
 	                    .findViewById(R.id.time);
 	            holder.content = (TextView) convertView
 	                    .findViewById(R.id.content);
+	            holder.area = (TextView) convertView
+	                    .findViewById(R.id.area_tv);
 	            holder.good_num = (TextView) convertView
 	                    .findViewById(R.id.good_num);
 	            holder.comment_num = (TextView) convertView
@@ -117,6 +110,8 @@ public class UploadInfoAdapter extends BaseAdapter {
 	            		.findViewById(R.id.comment_img);
 	            holder.comgoodhandle = (RelativeLayout) convertView
 	            		.findViewById(R.id.comgoodhandle);
+	            holder.content_ll = (LinearLayout)convertView
+	            		.findViewById(R.id.content_ll);
 	            convertView.setTag(holder);
 	            convertView.setId(position);
 	        }
@@ -132,6 +127,7 @@ public class UploadInfoAdapter extends BaseAdapter {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					Intent intent=new Intent(mContext, UserInfoView.class);
+					intent.putExtra("userid", data.get(position).getUserId());
 					mContext.startActivity(intent);		
 				}
 			};
@@ -141,17 +137,43 @@ public class UploadInfoAdapter extends BaseAdapter {
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					Intent intent=new Intent(mContext, TraffficMsgDetail.class);
-					
+					Bundle bundle = new Bundle();
+					bundle.putParcelable("msg", data.get(position));
+					Log.d("traffic", "push msg:"+data.get(position).getUserName());
+					intent.putExtras(bundle);  
 					mContext.startActivity(intent);		
 				}
 			};
-	        holder.username.setText(data.get(position).get("username")
-	                .toString());
+			MsgBean msg = data.get(position);
+	        holder.username.setText(msg.getUserName());
+	        holder.contenttime.setText(msg.getContentTime());
+	        holder.time.setText(msg.getTime());
+	        holder.content.setText("дк"+msg.getContent());
+	        holder.area.setText(msg.getPlace());
+	        holder.good_num.setText(msg.getGoodNum());
+	        holder.comment_num.setText(msg.getCommentNum());
+	        
 	        
 	        holder.username.setOnClickListener(userInfoListener);
+	        
+	        Ion.with(this.mContext)
+			.load(data.get(position).getTouPic())
+			.withBitmap()
+			//.placeholder(R.drawable.placeholder_image)
+			.error(R.drawable.tou)
+			.intoImageView(holder.userimg_iv).setCallback(new FutureCallback<ImageView>() {
+				@Override
+				public void onCompleted(Exception arg0, ImageView arg1) {
+					// TODO Auto-generated method stub
+					if(arg0 != null){
+						Log.d("traffic", arg0.toString());
+					}
+				}
+				
+			});
 	        holder.userimg_iv.setOnClickListener(userInfoListener);
 	        
-	        holder.content.setOnClickListener(infoDetailListener);
+	        holder.content_ll.setOnClickListener(infoDetailListener);
 	        
 	        holder.comgood_iv.setOnClickListener(new OnClickListener()
 	        {
@@ -179,10 +201,12 @@ public class UploadInfoAdapter extends BaseAdapter {
 	        return convertView;
 	}
 	
-	public void addNews(List<HashMap<String, String>> addNews) {
-		for(HashMap<String, String> hm:addNews) {
-			data.add(hm);
-		}
+	public void addNews(List<MsgBean> addNews) {
+		data.addAll(addNews);
+	}
+	
+	public void addFirstNews(List<MsgBean> addNews) {
+		data.addAll(0, addNews);
 	}
 
 }

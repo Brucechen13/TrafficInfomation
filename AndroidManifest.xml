@@ -17,6 +17,8 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" >
+    </uses-permission>
 
     <application
         android:allowBackup="true"
@@ -26,43 +28,39 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="0d8ce223a6cc527b1b2b6ff4ce23f69e" />
-        
-        <activity
-            android:name=".LoginActivity">
+
+        <activity android:name=".LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".MainActivity">
-            
+        <activity android:name=".MainActivity" >
         </activity>
-        <activity
-            android:name=".msg.UploadInfo"
-            android:parentActivityName=".MainActivity" >
+        <activity android:name=".msg.UploadMsg" >
         </activity>
-        <activity android:name=".msg.UpdateMsg" >
+        <activity android:name=".msg.UpdateInfo" >
         </activity>
         <activity android:name=".user.UserInfoView" >
         </activity>
         <activity android:name=".msg.TraffficMsgDetail" >
         </activity>
-        
-        <!--QQlogin  -->
+
+        <!-- QQlogin -->
         <activity
-	       android:name="com.tencent.tauth.AuthActivity"
-	       android:noHistory="true"
-	       android:launchMode="singleTask" >
-	    <intent-filter>
-	           <action android:name="android.intent.action.VIEW" />
-	       	<category android:name="android.intent.category.DEFAULT" />
-	       	<category android:name="android.intent.category.BROWSABLE" />
-	           <data android:scheme="tencent1104503342" />
-	    </intent-filter>
-	 </activity>
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent1104503342" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.tencent.open.yyb.AppbarActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -74,6 +72,17 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".UserFriends"
+            android:label="@string/title_activity_user_friends" >
+        </activity>
+
+        <service android:name=".service.BackNetService" />
+
+        <activity
+            android:name=".TaskShow"
+            android:label="@string/title_activity_task_show" >
+        </activity>
     </application>
 
 </manifest>
