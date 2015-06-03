@@ -110,7 +110,7 @@
 
              <TextView
                  android:id="@+id/area_tv"
-                 android:layout_width="120dp"
+                 android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:layout_toRightOf="@id/from"
                  android:text="某某地"

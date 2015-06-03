@@ -8,7 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.dlut.traffic.user.User;
-import com.dlut.traffic.util.ServerUtil;
+import com.dlut.traffic.util.ConstantsUtil;
 import com.dlut.traffic.util.Util;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -21,7 +21,6 @@ import com.tencent.tauth.UiError;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -46,7 +45,6 @@ public class LoginActivity extends Activity implements OnClickListener{
 	private UserInfo mInfo;
 	private User user;
 	private View view;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +63,6 @@ public class LoginActivity extends Activity implements OnClickListener{
 		qqLoginButton.setOnClickListener(this);
 		dataTips = (TextView) findViewById(R.id.dataloading); // 显示1.5秒钟后自动消失
 		user = new User();
-		SharedPreferences preferences = getSharedPreferences(Util.SHAREDPREFERENCES_NAME, MODE_PRIVATE);
-		if(preferences.getBoolean("zhanghao", false) && 
-				(preferences.getString("qq", null)!=null)){
-			validLogin(preferences.getString("qq", null));
-		}
 	}
 
 	@Override
@@ -80,27 +73,45 @@ public class LoginActivity extends Activity implements OnClickListener{
 		}
 	}
 	private void validLogin(String qq){
-		Log.d("traffic",qq);
-		dataTips.setVisibility(View.VISIBLE);
-		
-		Util.userId = qq;
+		Log.d("SDKQQAgentPref",qq);
 		Ion.with(LoginActivity.this)
-        .load(String.format("%s?qq=%s",ServerUtil.loginUrl, qq)).asJsonObject()
+        .load(String.format("%s?qq=%s",ConstantsUtil.loginUrl, qq)).asJsonObject()
 		.setCallback(new FutureCallback<JsonObject>() {
+
 			@Override
 			public void onCompleted(Exception e, JsonObject result) {
 				// TODO Auto-generated method stub
+				// 渐变展示启动屏
+				AlphaAnimation aa = new AlphaAnimation(0.3f, 1.0f);
+				aa.setDuration(2000);
+				view.startAnimation(aa);
+				aa.setAnimationListener(new AnimationListener() {
+					@Override
+					public void onAnimationEnd(Animation arg0) {
+						dataTips.setVisibility(View.VISIBLE);
+					}
+
+					@Override
+					public void onAnimationRepeat(Animation animation) {
+					}
+
+					@Override
+					public void onAnimationStart(Animation animation) {
+					}
+
+				});
+				
 				if (e != null) {
-					Log.d("traffic",e.toString());
-					dataTips.setText("登录失败："+e.toString());
+					Log.d("SDKQQAgentPref",e.toString());
 					return;
 				}
-				Log.d("traffic","login:"+result);
-				if(result.has("suc")){
+				Log.d("SDKQQAgentPref","login:"+result);
+				String qqString = result.get("qq").getAsString();
+				if(qqString.equals("false")){
 					dataTips.setText(R.string.userloadend);
 					updateUserInfo();
 				}else{
-					dataTips.setText(R.string.dataloadok);
+					dataTips.setText(R.string.dataloadend);
 					user.parseJson(result);
 					loginActivity();
 				}
@@ -115,7 +126,6 @@ public class LoginActivity extends Activity implements OnClickListener{
 		Bundle bundle = new Bundle();
 		bundle.putSerializable("user", user);
 		intent.putExtras(bundle);
-		Util.userId = user.getQq();
 		LoginActivity.this.startActivity(intent);
 	}
 	
@@ -136,7 +146,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 	private void onClickLogin() {
 		if (!mTencent.isSessionValid()) {
 			mTencent.login(this, "all", loginListener);
-			Log.d("traffic", "FirstLaunch_SDK:" + SystemClock.elapsedRealtime());
+			Log.d("SDKQQAgentPref", "FirstLaunch_SDK:" + SystemClock.elapsedRealtime());
 		} else {
 		    mTencent.logout(this);
 			updateUserInfo();
@@ -156,23 +166,25 @@ public class LoginActivity extends Activity implements OnClickListener{
 				@Override
 				public void onComplete(final Object response) {
 					
+					/*	Bitmap bitmap = null;
+					try {
+						bitmap = Util.getbitmap(json.getString("figureurl_qq_2"));
+					} catch (JSONException e) {
+
+					}*/
 					JSONObject json = (JSONObject)response;
 					try {
 						if(json.has("figureurl")){
 							user.setPhoto(json.getString("figureurl_qq_2"));
-							Log.d("traffic",json.getString("figureurl_qq_2"));
+							Log.d("SDKQQAgentPref",json.getString("figureurl_qq_2"));
 						}
 						if (json.has("nickname")) {
 							user.setNickName(json.getString("nickname"));
-							Log.d("traffic",json.getString("nickname"));
-						}
-						if (json.has("gender")) {
-							user.setGender(json.getString("gender"));
-							Log.d("traffic",json.getString("gender"));
+							Log.d("SDKQQAgentPref",json.getString("nickname"));
 						}
 						
 						Ion.with(LoginActivity.this)
-				        .load(String.format("%s?qq=%s&name=%s&pic=%s&gender=%s",ServerUtil.newUerUrl, user.getQq(), user.getNickName(), user.getPhoto(), user.getGender())).asJsonObject()
+				        .load(String.format("%s?qq=%s&name=%s&pic=%s",ConstantsUtil.newUerUrl, user.getQq(), user.getNickName(), user.getPhoto())).asJsonObject()
 						.setCallback(new FutureCallback<JsonObject>() {
 
 							@Override
@@ -180,15 +192,14 @@ public class LoginActivity extends Activity implements OnClickListener{
 									JsonObject result) {
 								// TODO Auto-generated method stub
 								if (e != null) {
-									Log.d("traffic",e.toString());
+									Log.d("SDKQQAgentPref",e.toString());
 									return;
 								}
 								String suc = result.get("suc").getAsString();
 								if(suc.equals("true")){
 									loginActivity();
 								}else{
-									Log.d("traffic",suc);
-									dataTips.setText("登录失败,请联系应用开发者");
+									Log.d("SDKQQAgentPref",suc);
 								}
 							}
 						});
@@ -206,7 +217,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 			};
 			mInfo = new UserInfo(this, mTencent.getQQToken());
 			mInfo.getUserInfo(listener);
-			Log.d("traffic","nickname");
+			Log.d("SDKQQAgentPref","nickname");
 		} else {
 		}
 	}
@@ -214,7 +225,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 	IUiListener loginListener = new BaseUiListener() {
         @Override
         protected void doComplete(JSONObject values) {
-        	Log.d("traffic", "AuthorSwitch_SDK:" + SystemClock.elapsedRealtime());
+        	Log.d("SDKQQAgentPref", "AuthorSwitch_SDK:" + SystemClock.elapsedRealtime());
             initOpenidAndToken(values);
             validLogin(user.getQq());
         }

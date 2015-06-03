@@ -1,270 +1,393 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/activity_bg"
-    android:orientation="horizontal" >
+    android:background="#dedede"
+    android:orientation="vertical" >
+    
+    <RelativeLayout 
+  			android:layout_width="fill_parent"
+  			android:layout_height="50dip" 
+  			android:id="@+id/title" 
+  			android:background="@drawable/s_search_bg"
+  			android:gravity="center_vertical" 
+  			
+  			 >  
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
-        android:layout_marginTop="5dip" >
+      		<TextView
+      		    android:id="@+id/mimedetail_back"
+      		    android:layout_width="wrap_content"
+      		    android:layout_height="wrap_content"
+      		    android:layout_centerVertical="true"
+      		    android:layout_marginLeft="10dip"
+      		    android:drawableLeft="@drawable/back_seletor"
+      		    android:gravity="center_vertical|center_horizontal"
+      		    android:text="返回"
+      		    android:textColor="@drawable/text_blue"
+      		    android:textSize="@dimen/sixteen" />
+				
+      		<TextView
+        		android:layout_width="wrap_content" 
+        		android:layout_height="wrap_content" 
+        		android:text="交通信息"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+        		android:textSize="20sp"      		     		        		
+				android:textColor="@color/black_color" /> 
+				
+          	<TextView
+          	     android:id="@+id/mimedetail_comment"
+        		android:layout_width="wrap_content" 
+        		android:layout_height="wrap_content" 
+        		android:text="评论"
+        		android:layout_centerVertical="true"
+        		android:layout_alignParentRight="true"
+        		android:layout_marginRight="10dip"
+        		android:textSize="@dimen/sixteen"       		        			
+				android:textColor="@drawable/text_blue" /> 	
+      	
+      		
+      	</RelativeLayout>
+      	 <View 
+      		   
+                     android:layout_width="fill_parent" 
+                     android:layout_height="1dip"  
+                      android:background="@drawable/line"
 
-        <ImageView
+                    />
+      	
+    <LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal" 
+    android:background="#ffffff"
+    >
+   
+   <RelativeLayout         
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginLeft="10dip"
+       android:layout_marginTop="5dip"
+        >
+        
+       <ImageView
             android:id="@+id/userimg_iv"
             android:layout_width="50.0dip"
             android:layout_height="50.0dip"
             android:background="@drawable/tou"
             android:scaleType="fitXY" />
-    </RelativeLayout>
+    
+  </RelativeLayout>
+  
+   
+   <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginBottom="10dip"
+        android:orientation="vertical"   
+       >
 
-
-       <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="12dip"
-            android:layout_marginRight="10dip">
-
-            <RelativeLayout
-                android:id="@+id/layou1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dip"
-                android:layout_alignParentTop="true" >
-
-                <TextView
+     <RelativeLayout 
+            android:layout_width="fill_parent"
+           android:layout_height="wrap_content" 
+           android:layout_marginTop="5dip"
+                      
+            >   
+             <TextView
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="wrap_content"                   
                     android:text="听说用户1001"
                     android:textColor="#7888a9"
-                    android:textSize="18.0sp"
-                    android:textStyle="bold" />
-
-                <TextView
+                    android:textStyle="bold"
+                    android:textSize="18.0sp" /> 
+                    
+               <TextView
                     android:id="@+id/contenttime"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="wrap_content"   
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="12dip"
+                    android:layout_marginRight="12dip"                
                     android:text="2015-3-5"
                     android:textColor="@color/gray"
-                    android:textSize="16.0sp" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/layou2"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dip"
-                android:layout_below="@+id/layou1"
-                android:background="#e6e6e6"
-                android:orientation="vertical" >
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dip"
-                    android:layout_marginTop="10dip" >
-
-                    <TextView
-                        android:id="@+id/content"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="5dip"
-                        android:text="在某某路段交通状况为畅通"
-                        android:textColor="#404040"
-                        android:textSize="16.0sp" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dip"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dip"
-                    android:layout_marginTop="8dip" >
-
-                    <TextView
-                        android:id="@+id/from"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="来自"
-                        android:textColor="@color/gray"
-                        android:textSize="14.0sp" />
-
-                    <TextView
-                        android:id="@+id/area_tv"
-                        android:layout_width="120dp"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/from"
-                        android:text="某某地"
-                        android:textColor="#7888a9"
-                        android:textSize="14.0sp" />
-
-                    <TextView
-                        android:id="@+id/time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dip"
-                        android:layout_toRightOf="@id/area_tv"
-                        android:text="09:35"
-                        android:textColor="#7888a9"
-                        android:textSize="14.0sp" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <FrameLayout
-                android:id="@+id/layou3"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dip"
-                android:layout_below="@+id/layou2" >
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
-
-                    <RelativeLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dip"
-                        android:layout_toLeftOf="@+id/comgood_iv" >
-
-                        <TextView
-                            android:id="@+id/good_num"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="19"
-                            android:textColor="@color/gray"
-                            android:textSize="14.0sp" />
-
-                        <TextView
-                            android:id="@+id/good"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="2dip"
-                            android:layout_toRightOf="@id/good_num"
-                            android:text="赞"
-                            android:textColor="@color/gray"
-                            android:textSize="14.0sp" />
-
-                        <TextView
-                            android:id="@+id/comment_num"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="2dip"
-                            android:layout_toRightOf="@id/good"
-                            android:text="36"
-                            android:textColor="@color/gray"
-                            android:textSize="14.0sp" />
-
-                        <TextView
-                            android:id="@+id/comment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="2dip"
-                            android:layout_toRightOf="@id/comment_num"
-                            android:text="评论"
-                            android:textColor="@color/gray"
-                            android:textSize="14.0sp" />
-                    </RelativeLayout>
-
-                    <ImageView
-                        android:id="@+id/comgood_iv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="10dip"
-                        android:background="@drawable/feed_more"
-                        android:scaleType="fitXY" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/comgoodhandle"
-                    android:layout_width="fill_parent"
-                    android:layout_height="30dip"
-                    android:layout_marginRight="32dip"
-                    android:visibility="gone" >
-
-                    <RelativeLayout
-                        android:id="@+id/cgood_rl"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true" >
-
-                        <ImageView
-                            android:id="@+id/good_img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/good_seletor" />
-
-                        <ImageView
-                            android:id="@+id/comment_img"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toRightOf="@id/good_img"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/comment_seletor" />
-                    </RelativeLayout>
-                </RelativeLayout>
-            </FrameLayout>
-
-            <LinearLayout
-                android:id="@+id/layou4"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginTop="15dip"
-                android:layout_below="@+id/layou3"
-                android:background="#e6e6e6"
-                android:orientation="vertical" >
-
-                <com.handmark.pulltorefresh.library.PullToRefreshListView
-                    xmlns:ptr="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/commentsList"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:divider="@drawable/divider"
-                    android:dividerHeight="@dimen/comment_margin"
-                    android:fadingEdge="none"
-                    android:fastScrollEnabled="false"
-                    android:footerDividersEnabled="false"
-                    android:headerDividersEnabled="false"
-                    android:smoothScrollbar="true"
-                    ptr:ptrAnimationStyle="flip" >
-                </com.handmark.pulltorefresh.library.PullToRefreshListView>
-            </LinearLayout>
-
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true" >
-
-                <EditText
-                    android:id="@+id/text"
-                    android:focusable="true" 
-                    android:focusableInTouchMode="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:enabled="true"
-                    android:hint="请输入评论" />
-
-                <Button
-                    android:id="@+id/send"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="评论" />
-            </RelativeLayout>
+                    android:textSize="16.0sp" /> 
+      
+             
         </RelativeLayout>
+        
+     
+          <LinearLayout 
+                
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content" 
+           android:layout_marginTop="5dip" 
+           android:orientation="vertical"
+           android:background="#e6e6e6"           
+                
+                >
+     
+         <RelativeLayout 
+            android:layout_width="fill_parent"
+           android:layout_height="wrap_content" 
+           android:layout_marginTop="10dip"
+           android:layout_marginLeft="10dip"
+           android:layout_marginRight="10dip"
+         
+            >
+             
+               <TextView
+                   android:id="@+id/content"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerVertical="true"
+                   android:layout_marginLeft="5dip"
+                   android:text="在某某路段交通状况为畅通"
+                   android:textColor="#404040"
+                   android:textSize="16.0sp" />
+
+        </RelativeLayout>
+        
+         
+           <RelativeLayout 
+            android:layout_width="fill_parent"
+           android:layout_height="wrap_content" 
+           android:layout_marginTop="8dip"
+           android:layout_marginLeft="10dip"
+           android:layout_marginRight="10dip"
+           android:layout_marginBottom="5dip"
+                      
+            >  
+            <TextView
+                    android:id="@+id/from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"                   
+                    android:text="来自"
+                    android:textColor="@color/gray"
+                    android:textSize="14.0sp" />  
+             <TextView
+                    android:id="@+id/area_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" 
+                    android:layout_toRightOf="@id/from"                   
+                    android:text="某某地"
+                    android:textColor="#7888a9"
+                    android:textSize="14.0sp" /> 
+                    
+               <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" 
+                    android:layout_toRightOf="@id/area_tv"  
+                    android:layout_marginLeft="5dip"               
+                    android:text="09:35"
+                    android:textColor="#7888a9"
+                    android:textSize="14.0sp" /> 
+      
+             
+        </RelativeLayout>
+
+     </LinearLayout>
+     
+          
+          
+          
+        <FrameLayout 
+           android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+                 android:layout_marginTop="12dip"     
+            >
+          
+            <RelativeLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+              
+            >  
+ 
+           <RelativeLayout 
+            android:layout_width="fill_parent"
+           android:layout_height="wrap_content" 
+           android:layout_centerVertical="true"
+           android:layout_toLeftOf="@+id/comgood_iv"
+           android:layout_marginRight="10dip"
+         
+                      
+            >  
+            <TextView
+                    android:id="@+id/good_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"                   
+                    android:text="19"
+                    android:textColor="@color/gray"
+                    android:textSize="14.0sp" />  
+             <TextView
+                    android:id="@+id/good"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"                    
+                    android:layout_toRightOf="@id/good_num"  
+                    android:layout_marginLeft="2dip"                 
+                    android:text="赞"
+                    android:textColor="@color/gray"
+                    android:textSize="14.0sp" /> 
+                 
+                
+             
+             
+              <TextView
+                    android:id="@+id/comment_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" 
+                    android:layout_toRightOf="@id/good"  
+                    android:layout_marginLeft="2dip"               
+                    android:text="36"
+                    android:textColor="@color/gray"
+                    android:textSize="14.0sp" /> 
+               <TextView
+                    android:id="@+id/comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" 
+                    android:layout_toRightOf="@id/comment_num"  
+                    android:layout_marginLeft="2dip"               
+                    android:text="评论"
+                    android:textColor="@color/gray"
+                    android:textSize="14.0sp" />  
+           
+         </RelativeLayout> 
+
+             <ImageView
+            android:id="@+id/comgood_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dip"
+            android:background="@drawable/feed_more"
+            android:scaleType="fitXY" />
+             
+        </RelativeLayout> 
+        
+         <RelativeLayout  
+            android:id="@+id/comgoodhandle"  
+            android:layout_width="fill_parent"  
+            android:layout_height="30dip" 
+            android:layout_marginRight="32dip"
+            android:visibility="gone"
+            >
+             
+            <RelativeLayout 
+                 android:id="@+id/cgood_rl"  
+                android:layout_width="wrap_content"  
+                android:layout_height="wrap_content"  
+               android:layout_alignParentRight="true"    
+                
+                >
+             
+             
+            <ImageView  
+                android:id="@+id/good_img"  
+                android:layout_width="wrap_content"  
+                android:layout_height="wrap_content"  
+                 android:layout_centerVertical="true"  
+                android:scaleType="fitXY"  
+                android:src="@drawable/good_seletor" 
+               
+                />  
+            <ImageView  
+                android:id="@+id/comment_img"  
+                android:layout_width="wrap_content"  
+                android:layout_height="wrap_content"              
+                android:layout_centerVertical="true" 
+                android:layout_toRightOf="@id/good_img" 
+                android:scaleType="fitXY" 
+                android:src="@drawable/comment_seletor"
+               
+          />
+            </RelativeLayout> 
+        </RelativeLayout>     
+           </FrameLayout> 
+     
+     
+        
+           
+              
+            
+           <RelativeLayout 
+            android:layout_width="fill_parent"
+           android:layout_height="40dip" 
+           android:layout_marginTop="15dip"
+           android:background="#e6e6e6"
+            > 
+           
+            
+              <ImageView
+            android:id="@+id/share_heart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dip"
+            android:background="@drawable/s_msg_icon_praise"
+            android:scaleType="fitXY" />
+             
+             
+               <TextView
+                    android:id="@+id/share_names"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"  
+                    android:layout_toRightOf="@id/share_heart" 
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dip"                
+                    android:text="分享Arcc"
+                    android:textColor="#7888a9"
+                    android:textSize="13.0sp" /> 
+
+        </RelativeLayout>    
+            
+          <ImageView
+            android:id="@+id/line"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@drawable/line"
+            />
+          
+          
+           <LinearLayout 
+            android:id="@+id/comment_container" 
+            android:layout_width="fill_parent"
+           android:layout_height="wrap_content" 
+           android:background="#e6e6e6"
+           android:orientation="vertical"
+            > 
+
+               <TextView
+                    android:id="@+id/comment_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dip"                    
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dip"  
+                    android:gravity="center"              
+                    android:text="邻居的耳朵:谢谢"
+                    android:textColor="#7888a9"
+                    android:textSize="16.0sp" />
+               
+               <TextView
+                    android:id="@+id/comment_name1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dip"                    
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dip"  
+                    android:gravity="center"              
+                    android:text="听说用户1001:没事"
+                    android:textColor="#7888a9"
+                    android:textSize="16.0sp" />
+
+      </LinearLayout>   
+     
+     
+     
+   </LinearLayout>
+   
+   </LinearLayout>
 
 </LinearLayout>

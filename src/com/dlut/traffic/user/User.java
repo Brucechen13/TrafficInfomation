@@ -67,8 +67,8 @@ public class User implements Serializable {
 	}
 	
 	public void parseJson(JsonObject result){
-		if(result.has("_id")){
-			this.setQq(result.get("_id").getAsString());
+		if(result.has("qq")){
+			this.setQq(result.get("qq").getAsString());
 		}
 		if(result.has("name")){
 			this.setNickName(result.get("name").getAsString());

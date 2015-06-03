@@ -35,12 +35,12 @@
                android:layout_centerVertical="true"
                android:layout_marginLeft="10dip"
                android:layout_toRightOf="@id/mine_tongzhi_img"
-               android:text="接受推送通知"
+               android:text="通知"
                android:textColor="#202020"
                android:textSize="16sp" />
 
                     <CheckBox
-                        android:id="@+id/tuisong_checkbox"
+                        android:id="@+id/tongzhi_checkbox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -67,7 +67,7 @@
                         android:layout_height="36.0dip"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dip"
-                        android:background="@drawable/ic_profile_normal"
+                        android:background="@drawable/chat_addition_activity_nor"
                         android:scaleType="fitXY" />
 
            <TextView
@@ -77,12 +77,12 @@
                android:layout_centerVertical="true"
                android:layout_marginLeft="10dip"
                android:layout_toRightOf="@id/mine_scgj_img"
-               android:text="保存个人账号"
+               android:text="上传轨迹消息"
                android:textColor="#202020"
                android:textSize="16sp" />
 
                     <CheckBox
-                        android:id="@+id/zhanghao_checkbox"
+                        android:id="@+id/scgj_checkbox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -92,7 +92,6 @@
                         android:scaleType="matrix" />
 
                 </RelativeLayout>
-            
             <View 
                      android:layout_width="fill_parent" 
                      android:layout_height="1dip"  
@@ -152,7 +151,7 @@
             android:padding="@dimen/table_padding" >
 
             <Button
-                android:id="@+id/exit"
+                android:id="@+id/layout_exit"
                 style="@style/text_black_18"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/row_height"

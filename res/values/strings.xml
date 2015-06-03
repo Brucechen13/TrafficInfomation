@@ -2,46 +2,20 @@
 <resources>
 
     <string name="app_name">分享交通</string>
-    <string name="text_tab_message">地图</string>
-    <string name="text_tab_service">消息</string>
+    <string name="text_tab_message">消息</string>
+    <string name="text_tab_service">服务</string>
     <string name="text_tab_profile">个人</string>
     <string name="text_tab_setting">设置</string>
     <string name="button_backward">返回</string>
     <string name="button_submit">提交</string>
     <string name="text_exit">退出</string>
-    <string name="text_refresh">刷新</string>
     <string name="edit_user">编辑个人资料</string>
-    <string name="userInfo">个人资料</string>
-    <string name="tra_msg">交通信息</string>
+    
 
-    <!-- 登陆文字介绍 -->
-    <string name="loadingshow">欢迎使用分享交通，本软件旨在帮助用户上传分享相应位置的交通堵塞情况，
-        以便选择正确的通行道路。用户上传或评论交通信息可以获得积分，用户可以使用积分进行抽取好友或发布任务等操作。\n
-        欢迎您的使用，祝您使用愉快 。\n
-        请点击下面按钮进行授权登陆:"</string>
-    <string name="loadingshowenglish">Welcome to Use This Software,Have Fun。\n
-        Please click that button to login in:"</string>
     <!-- 闪屏文字提示 -->
     <string name="loadinginfo">登陆中...</string>
     <string name="initsystemdataexception">登陆失败...</string>
-    <string name="dataloadok">登陆成功，欢迎回来</string>
+    <string name="dataloadend">登陆成功，欢迎回来</string>
     <string name="userloadend">初次登陆，欢迎使用</string>
-    <string name="listshow">交通信息列表</string>
-    <string name="listfriend">好友列表</string>
-    <string name="listloading">刷新中...</string>
-
-    <!-- 交通信息 -->
-    <string name="edit_traffic">上传交通信息</string>
-    <string name="lukuang">路况</string>
-    <string name="shigu">事故</string>
-    <string name="tucao">吐槽</string>
-    <string name="qiuzhu">求助</string>
-    <string name="yongdu">拥堵</string>
-    <string name="huanman">缓慢</string>
-    <string name="changtong">畅通</string>
-    <string name="title_activity_user_friends">UserFriends</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_task_show">TaskShow</string>
 
 </resources>

@@ -11,276 +11,173 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
-
-import com.dlut.traffic.R;
-import com.dlut.traffic.TaskShow;
-import com.dlut.traffic.service.BackNetService;
-import com.dlut.traffic.user.UserInfoView;
 
 import junit.framework.Assert;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
-import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 public class Util {
-
+	
 	private static final String TAG = "SDK_Sample.Util";
-
+	
 	private static Dialog mProgressDialog;
 	private static Toast mToast;
 
-	public static String userId;
+    /* Convert byte[] to hex string.这里我们可以将byte转换成int，然后利用Integer.toHexString(int)来转换成16进制字符串。
+            * @param src byte[] data
+    * @return hex string
+    */
+    public static String bytesToHexString(byte[] src){
+        StringBuilder stringBuilder = new StringBuilder("");
+        if (src == null || src.length <= 0) {
+            return null;
+        }
+        for (int i = 0; i < src.length; i++) {
+            int v = src[i] & 0xFF;
+            String hv = Integer.toHexString(v);
+            if (hv.length() < 2) {
+                stringBuilder.append(0);
+            }
+            stringBuilder.append(hv);
+        }
+        return stringBuilder.toString();
+    }
+    /**
+     * Convert hex string to byte[]
+     * @param hexString the hex string
+     * @return byte[]
+     */
+    public static byte[] hexStringToBytes(String hexString) {
+        if (hexString == null || hexString.equals("")) {
+            return null;
+        }
+        hexString = hexString.toUpperCase();
+        int length = hexString.length() / 2;
+        char[] hexChars = hexString.toCharArray();
+        byte[] d = new byte[length];
+        for (int i = 0; i < length; i++) {
+            int pos = i * 2;
+            d[i] = (byte) (charToByte(hexChars[pos]) << 4 | charToByte(hexChars[pos + 1]));
+        }
+        return d;
+    }
+    /**
+     * Convert char to byte
+     * @param c char
+     * @return byte
+     */
+    private static byte charToByte(char c) {
+        return (byte) "0123456789ABCDEF".indexOf(c);
+    }
 
-	public static final String SHAREDPREFERENCES_NAME = "traffic";
-
-	// 用户界面回调的请求码
-	public static final int SIGNATURE = 10;
-	public static final int GENDER = 11;
-	public static final int AREA = 12;
-	public static final int JOB = 13;
-	public static final int COMPANY = 14;
-	public static final int TASK = 15;
-	
-	private static int notifyId = 1;
-
-	/**
-	 * 将由Mong DB读取的ISODATE转换为DATE格式
-	 * 
-	 * @param isoDate
-	 * @return
-	 */
-	public static Date parseISODate(String isoDate) {
-		TimeZone tz = TimeZone.getTimeZone("UTC");
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.S'Z'");
-		df.setTimeZone(tz);
-		try {
-			Date date = df.parse(isoDate);
-			return date;
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			Log.d("traffic", e.getMessage());
-			return new Date();
-		}
-	}
-
-	public static void showIntentActivityNotify(Context context, String user,
-			String type, String content) {// 跳转到activity的通知
-		NotificationManager mNotificationManager = (NotificationManager) context
-				.getSystemService(Context.NOTIFICATION_SERVICE);
-		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-				context);
-		mBuilder.setContentTitle("任务类型："+type)
-		.setContentText(content)
-		.setContentIntent(getDefalutIntent(context, Notification.FLAG_AUTO_CANCEL))
-//		.setNumber(number)//显示数量
-		.setTicker("通知来啦")//通知首次出现在通知栏，带上升动画效果的
-		.setWhen(System.currentTimeMillis())//通知产生的时间，会在通知信息里显示
-		.setPriority(Notification.PRIORITY_DEFAULT)//设置该通知优先级
-//		.setAutoCancel(true)//设置这个标志当用户单击面板就可以让通知将自动取消  
-		.setOngoing(false)//ture，设置他为一个正在进行的通知。他们通常是用来表示一个后台任务,用户积极参与(如播放音乐)或以某种方式正在等待,因此占用设备(如一个文件下载,同步操作,主动网络连接)
-		.setDefaults(Notification.DEFAULT_VIBRATE)//向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合：
-		//Notification.DEFAULT_ALL  Notification.DEFAULT_SOUND 添加声音 // requires VIBRATE permission
-		.setSmallIcon(R.drawable.ic_launcher);
-		mBuilder.setAutoCancel(true);// 点击后让通知将消失
-		//		.setContentTitle("新任务来了").setContentText("点击跳转").setTicker("任务");
-		// 点击的意图ACTION是跳转到Intent
-		Intent resultIntent = new Intent(context, TaskShow.class);
-		resultIntent.putExtra("user", user);
-		resultIntent.putExtra("type", type);
-		resultIntent.putExtra("content", content);
-		resultIntent.putExtra("time", content);
-		resultIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
-				resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-		mBuilder.setContentIntent(pendingIntent);
-		mNotificationManager.notify(notifyId, mBuilder.build());
-		notifyId++;
-	}
-	
-	public static void clearAllNotification(Context context){
-		NotificationManager mNotificationManager = (NotificationManager) context
-				.getSystemService(Context.NOTIFICATION_SERVICE);
-		mNotificationManager.cancelAll();
-	}
-	
-	/**
-	 * @获取默认的pendingIntent,为了防止2.3及以下版本报错
-	 * @flags属性:  
-	 * 在顶部常驻:Notification.FLAG_ONGOING_EVENT  
-	 * 点击去除： Notification.FLAG_AUTO_CANCEL 
-	 */
-	public static PendingIntent getDefalutIntent(Context context, int flags){
-		PendingIntent pendingIntent= PendingIntent.getActivity(context, 1, new Intent(), flags);
-		return pendingIntent;
-	}
-
-	/*
-	 * Convert byte[] to hex
-	 * string.这里我们可以将byte转换成int，然后利用Integer.toHexString(int)来转换成16进制字符串。
-	 * 
-	 * @param src byte[] data
-	 * 
-	 * @return hex string
-	 */
-	public static String bytesToHexString(byte[] src) {
-		StringBuilder stringBuilder = new StringBuilder("");
-		if (src == null || src.length <= 0) {
-			return null;
-		}
-		for (int i = 0; i < src.length; i++) {
-			int v = src[i] & 0xFF;
-			String hv = Integer.toHexString(v);
-			if (hv.length() < 2) {
-				stringBuilder.append(0);
-			}
-			stringBuilder.append(hv);
-		}
-		return stringBuilder.toString();
-	}
-
-	/**
-	 * Convert hex string to byte[]
-	 * 
-	 * @param hexString
-	 *            the hex string
-	 * @return byte[]
-	 */
-	public static byte[] hexStringToBytes(String hexString) {
-		if (hexString == null || hexString.equals("")) {
-			return null;
-		}
-		hexString = hexString.toUpperCase();
-		int length = hexString.length() / 2;
-		char[] hexChars = hexString.toCharArray();
-		byte[] d = new byte[length];
-		for (int i = 0; i < length; i++) {
-			int pos = i * 2;
-			d[i] = (byte) (charToByte(hexChars[pos]) << 4 | charToByte(hexChars[pos + 1]));
-		}
-		return d;
-	}
-
-	/**
-	 * Convert char to byte
-	 * 
-	 * @param c
-	 *            char
-	 * @return byte
-	 */
-	private static byte charToByte(char c) {
-		return (byte) "0123456789ABCDEF".indexOf(c);
-	}
-
-	/*
-	 * 16进制数字字符集
-	 */
-	private static String hexString = "0123456789ABCDEF";
-
-	/*
-	 * 将字符串编码成16进制数字,适用于所有字符（包括中文）
-	 */
-	public static String toHexString(String str) {
-		// 根据默认编码获取字节数组
-		byte[] bytes = null;
+    /*
+     * 16进制数字字符集
+     */
+    private static String hexString="0123456789ABCDEF";
+    /*
+     * 将字符串编码成16进制数字,适用于所有字符（包括中文）
+     */
+    public static String toHexString(String str)
+    {
+//根据默认编码获取字节数组
+        byte[] bytes = null;
 		try {
 			bytes = str.getBytes("UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		if (bytes == null)
-			return null;
-		StringBuilder sb = new StringBuilder(bytes.length * 2);
-		// 将字节数组中每个字节拆解成2位16进制整数
-		for (int i = 0; i < bytes.length; i++) {
-			sb.append(hexString.charAt((bytes[i] & 0xf0) >> 4));
-			sb.append(hexString.charAt((bytes[i] & 0x0f) >> 0));
-		}
-		return sb.toString();
-	}
+		if (bytes == null) return null;
+        StringBuilder sb=new StringBuilder(bytes.length*2);
+//将字节数组中每个字节拆解成2位16进制整数
+        for(int i=0;i<bytes.length;i++)
+        {
+            sb.append(hexString.charAt((bytes[i]&0xf0)>>4));
+            sb.append(hexString.charAt((bytes[i]&0x0f)>>0));
+        }
+        return sb.toString();
+    }
 
-	// 转换十六进制编码为字符串
-	public static String hexToString(String s) {
-		if ("0x".equals(s.substring(0, 2))) {
-			s = s.substring(2);
-		}
-		byte[] baKeyword = new byte[s.length() / 2];
-		for (int i = 0; i < baKeyword.length; i++) {
-			try {
-				baKeyword[i] = (byte) (0xff & Integer.parseInt(
-						s.substring(i * 2, i * 2 + 2), 16));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+    //转换十六进制编码为字符串
+    public static String hexToString(String s)
+    {
+        if("0x".equals(s.substring(0, 2)))
+        {
+            s =s.substring(2);
+        }
+        byte[] baKeyword = new byte[s.length()/2];
+        for(int i = 0; i < baKeyword.length; i++)
+        {
+            try
+            {
+                baKeyword[i] = (byte)(0xff & Integer.parseInt(s.substring(i*2, i*2+2),16));
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
 
-		try {
-			s = new String(baKeyword, "utf-8");// UTF-16le:Not
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-		return s;
-	}
+        try
+        {
+            s = new String(baKeyword, "utf-8");//UTF-16le:Not
+        }
+        catch (Exception e1)
+        {
+            e1.printStackTrace();
+        }
+        return s;
+    }
 
-	public static byte[] bmpToByteArray(final Bitmap bmp,
-			final boolean needRecycle) {
+    public static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 		bmp.compress(CompressFormat.PNG, 100, output);
 		if (needRecycle) {
 			bmp.recycle();
 		}
-
+		
 		byte[] result = output.toByteArray();
 		try {
 			output.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 		return result;
 	}
-
+	
 	public static byte[] getHtmlByteArray(final String url) {
-		URL htmlUrl = null;
-		InputStream inStream = null;
-		try {
-			htmlUrl = new URL(url);
-			URLConnection connection = htmlUrl.openConnection();
-			HttpURLConnection httpConnection = (HttpURLConnection) connection;
-			int responseCode = httpConnection.getResponseCode();
-			if (responseCode == HttpURLConnection.HTTP_OK) {
-				inStream = httpConnection.getInputStream();
-			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		 URL htmlUrl = null;     
+		 InputStream inStream = null;     
+		 try {         
+			 htmlUrl = new URL(url);         
+			 URLConnection connection = htmlUrl.openConnection();         
+			 HttpURLConnection httpConnection = (HttpURLConnection)connection;         
+			 int responseCode = httpConnection.getResponseCode();         
+			 if(responseCode == HttpURLConnection.HTTP_OK){             
+				 inStream = httpConnection.getInputStream();         
+			  }     
+			 } catch (MalformedURLException e) {               
+				 e.printStackTrace();     
+			 } catch (IOException e) {              
+				e.printStackTrace();    
+		  } 
 		byte[] data = inputStreamToByte(inStream);
 
 		return data;
 	}
-
+	
 	public static byte[] inputStreamToByte(InputStream is) {
-		try {
+		try{
 			ByteArrayOutputStream bytestream = new ByteArrayOutputStream();
 			int ch;
 			while ((ch = is.read()) != -1) {
@@ -289,13 +186,13 @@ public class Util {
 			byte imgdata[] = bytestream.toByteArray();
 			bytestream.close();
 			return imgdata;
-		} catch (Exception e) {
+		}catch(Exception e){
 			e.printStackTrace();
 		}
-
+		
 		return null;
 	}
-
+	
 	public static byte[] readFromFile(String fileName, int offset, int len) {
 		if (fileName == null) {
 			return null;
@@ -311,18 +208,17 @@ public class Util {
 			len = (int) file.length();
 		}
 
-		Log.d(TAG, "readFromFile : offset = " + offset + " len = " + len
-				+ " offset + len = " + (offset + len));
+		Log.d(TAG, "readFromFile : offset = " + offset + " len = " + len + " offset + len = " + (offset + len));
 
-		if (offset < 0) {
+		if(offset <0){
 			Log.e(TAG, "readFromFile invalid offset:" + offset);
 			return null;
 		}
-		if (len <= 0) {
+		if(len <=0 ){
 			Log.e(TAG, "readFromFile invalid len:" + len);
 			return null;
 		}
-		if (offset + len > (int) file.length()) {
+		if(offset + len > (int) file.length()){
 			Log.e(TAG, "readFromFile invalid file len:" + file.length());
 			return null;
 		}
@@ -342,102 +238,99 @@ public class Util {
 		return b;
 	}
 
-	public static int computeSampleSize(BitmapFactory.Options options,
+    public static int computeSampleSize(BitmapFactory.Options options,
 
-	int minSideLength, int maxNumOfPixels) {
+                                        int minSideLength, int maxNumOfPixels) {
 
-		int initialSize = computeInitialSampleSize(options, minSideLength,
+        int initialSize = computeInitialSampleSize(options, minSideLength,
 
-		maxNumOfPixels);
+                maxNumOfPixels);
 
-		int roundedSize;
+        int roundedSize;
 
-		if (initialSize <= 8) {
+        if (initialSize <= 8) {
 
-			roundedSize = 1;
+            roundedSize = 1;
 
-			while (roundedSize < initialSize) {
+            while (roundedSize < initialSize) {
 
-				roundedSize <<= 1;
+                roundedSize <<= 1;
 
-			}
+            }
 
-		} else {
+        } else {
 
-			roundedSize = (initialSize + 7) / 8 * 8;
+            roundedSize = (initialSize + 7) / 8 * 8;
 
-		}
+        }
 
-		return roundedSize;
-	}
+        return roundedSize;
+    }
 
-	private static int computeInitialSampleSize(BitmapFactory.Options options,
+    private static int computeInitialSampleSize(BitmapFactory.Options options,
 
-	int minSideLength, int maxNumOfPixels) {
+                                                int minSideLength, int maxNumOfPixels) {
 
-		double w = options.outWidth;
+        double w = options.outWidth;
 
-		double h = options.outHeight;
+        double h = options.outHeight;
 
-		int lowerBound = (maxNumOfPixels == -1) ? 1 :
+        int lowerBound = (maxNumOfPixels == -1) ? 1 :
 
-		(int) Math.ceil(Math.sqrt(w * h / maxNumOfPixels));
+                (int) Math.ceil(Math.sqrt(w * h / maxNumOfPixels));
 
-		int upperBound = (minSideLength == -1) ? 128 :
+        int upperBound = (minSideLength == -1) ? 128 :
 
-		(int) Math.min(Math.floor(w / minSideLength),
+                (int) Math.min(Math.floor(w / minSideLength),
 
-		Math.floor(h / minSideLength));
+                        Math.floor(h / minSideLength));
 
-		if (upperBound < lowerBound) {
+        if (upperBound < lowerBound) {
 
-			// return the larger one when there is no overlapping zone.
+            // return the larger one when there is no overlapping zone.
 
-			return lowerBound;
+            return lowerBound;
 
-		}
+        }
 
-		if ((maxNumOfPixels == -1) &&
+        if ((maxNumOfPixels == -1) &&
 
-		(minSideLength == -1)) {
+                (minSideLength == -1)) {
 
-			return 1;
+            return 1;
 
-		} else if (minSideLength == -1) {
+        } else if (minSideLength == -1) {
 
-			return lowerBound;
+            return lowerBound;
 
-		} else {
+        } else {
 
-			return upperBound;
+            return upperBound;
 
-		}
-	}
+        }
+    }
 
-	/**
-	 * 以最省内存的方式读取图片
-	 */
-	public static Bitmap readBitmap(final String path) {
-		try {
-			FileInputStream stream = new FileInputStream(new File(path
-					+ "test.jpg"));
-			BitmapFactory.Options opts = new BitmapFactory.Options();
-			opts.inSampleSize = 8;
-			opts.inPurgeable = true;
-			opts.inInputShareable = true;
-			Bitmap bitmap = BitmapFactory.decodeStream(stream, null, opts);
-			return bitmap;
-		} catch (Exception e) {
-			return null;
-		}
-	}
+    /**
+     * 以最省内存的方式读取图片
+     */
+    public static Bitmap readBitmap(final String path){
+        try{
+            FileInputStream stream = new FileInputStream(new File(path+"test.jpg"));
+            BitmapFactory.Options opts = new BitmapFactory.Options();
+            opts.inSampleSize = 8;
+            opts.inPurgeable=true;
+            opts.inInputShareable=true;
+            Bitmap bitmap = BitmapFactory.decodeStream(stream , null, opts);
+            return bitmap;
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
 
-	private static final int MAX_DECODE_PICTURE_SIZE = 1920 * 1440;
-
-	public static Bitmap extractThumbNail(final String path, final int height,
-			final int width, final boolean crop) {
-		Assert.assertTrue(path != null && !path.equals("") && height > 0
-				&& width > 0);
+    private static final int MAX_DECODE_PICTURE_SIZE = 1920 * 1440;
+	public static Bitmap extractThumbNail(final String path, final int height, final int width, final boolean crop) {
+		Assert.assertTrue(path != null && !path.equals("") && height > 0 && width > 0);
 
 		BitmapFactory.Options options = new BitmapFactory.Options();
 
@@ -449,14 +342,11 @@ public class Util {
 				tmp = null;
 			}
 
-			Log.d(TAG, "extractThumbNail: round=" + width + "x" + height
-					+ ", crop=" + crop);
+			Log.d(TAG, "extractThumbNail: round=" + width + "x" + height + ", crop=" + crop);
 			final double beY = options.outHeight * 1.0 / height;
 			final double beX = options.outWidth * 1.0 / width;
-			Log.d(TAG, "extractThumbNail: extract beX = " + beX + ", beY = "
-					+ beY);
-			options.inSampleSize = (int) (crop ? (beY > beX ? beX : beY)
-					: (beY < beX ? beX : beY));
+			Log.d(TAG, "extractThumbNail: extract beX = " + beX + ", beY = " + beY);
+			options.inSampleSize = (int) (crop ? (beY > beX ? beX : beY) : (beY < beX ? beX : beY));
 			if (options.inSampleSize <= 1) {
 				options.inSampleSize = 1;
 			}
@@ -484,38 +374,29 @@ public class Util {
 
 			options.inJustDecodeBounds = false;
 
-			Log.i(TAG, "bitmap required size=" + newWidth + "x" + newHeight
-					+ ", orig=" + options.outWidth + "x" + options.outHeight
-					+ ", sample=" + options.inSampleSize);
+			Log.i(TAG, "bitmap required size=" + newWidth + "x" + newHeight + ", orig=" + options.outWidth + "x" + options.outHeight + ", sample=" + options.inSampleSize);
 			Bitmap bm = BitmapFactory.decodeFile(path, options);
 			if (bm == null) {
 				Log.e(TAG, "bitmap decode failed");
 				return null;
 			}
 
-			Log.i(TAG,
-					"bitmap decoded size=" + bm.getWidth() + "x"
-							+ bm.getHeight());
-			final Bitmap scale = Bitmap.createScaledBitmap(bm, newWidth,
-					newHeight, true);
+			Log.i(TAG, "bitmap decoded size=" + bm.getWidth() + "x" + bm.getHeight());
+			final Bitmap scale = Bitmap.createScaledBitmap(bm, newWidth, newHeight, true);
 			if (scale != null) {
 				bm.recycle();
 				bm = scale;
 			}
 
 			if (crop) {
-				final Bitmap cropped = Bitmap.createBitmap(bm,
-						(bm.getWidth() - width) >> 1,
-						(bm.getHeight() - height) >> 1, width, height);
+				final Bitmap cropped = Bitmap.createBitmap(bm, (bm.getWidth() - width) >> 1, (bm.getHeight() - height) >> 1, width, height);
 				if (cropped == null) {
 					return bm;
 				}
 
 				bm.recycle();
 				bm = cropped;
-				Log.i(TAG,
-						"bitmap croped size=" + bm.getWidth() + "x"
-								+ bm.getHeight());
+				Log.i(TAG, "bitmap croped size=" + bm.getWidth() + "x" + bm.getHeight());
 			}
 			return bm;
 
@@ -526,11 +407,10 @@ public class Util {
 
 		return null;
 	}
-
+	
 	public static final void showResultDialog(Context context, String msg,
 			String title) {
-		if (msg == null)
-			return;
+		if(msg == null) return;
 		String rmsg = msg.replace(",", "\n");
 		Log.d("Util", rmsg);
 		new AlertDialog.Builder(context).setTitle(title).setMessage(rmsg)
@@ -548,7 +428,7 @@ public class Util {
 		}
 		mProgressDialog = ProgressDialog.show(context, title, message);
 	}
-
+	
 	public static AlertDialog showConfirmCancelDialog(Context context,
 			String title, String message,
 			DialogInterface.OnClickListener posListener) {
@@ -640,9 +520,11 @@ public class Util {
 		}
 		return bitmap;
 	}
-
+	
 	public static void release() {
-		mProgressDialog = null;
-		mToast = null;
+	    mProgressDialog = null;
+	    mToast = null;
 	}
 }
+
+
