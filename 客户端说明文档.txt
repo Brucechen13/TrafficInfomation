@@ -1,0 +1,5 @@
+本文件夹实现了Andorid客户端功能。
+lib文件夹导入项目必须的外部jar包，包括高德地图jar和其他jar包。
+res文件夹包括了客户端所需的布局文件，资源文件。
+src文件夹包括了客户端实现代码。
+library_pullToRefresh文件夹是pullToRefreshListView组件的lib工程，必须导入到项目中。
