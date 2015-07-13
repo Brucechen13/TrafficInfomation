@@ -40,7 +40,7 @@
         </activity>
         <activity android:name=".msg.UploadMsg" >
         </activity>
-        <activity android:name=".msg.UpdateInfo" >
+        <activity android:name="com.dlut.traffic.user.UpdateInfo" >
         </activity>
         <activity android:name=".user.UserInfoView" >
         </activity>

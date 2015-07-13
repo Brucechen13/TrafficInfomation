@@ -5,9 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.dlut.traffic.LoginActivity;
 import com.dlut.traffic.R;
 import com.dlut.traffic.msg.TraffficMsgDetail;
 import com.dlut.traffic.user.UserInfoView;
+import com.dlut.traffic.util.ServerUtil;
+import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
@@ -174,6 +177,35 @@ public class MsgsAdapter extends BaseAdapter {
 	        holder.userimg_iv.setOnClickListener(userInfoListener);
 	        
 	        holder.content_ll.setOnClickListener(infoDetailListener);
+	        holder.comment_img.setOnClickListener(infoDetailListener);
+	        
+	        holder.good_img.setOnClickListener(new OnClickListener()
+	        {
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Log.i("traffic", "good num");
+					String num = data.get(position).getGoodNum();
+					data.get(position).setGoodNum(String.valueOf(Integer.parseInt(num)+1));
+					holder.good_num.setText(data.get(position).getGoodNum());
+					holder.good_img.setVisibility(View.GONE);
+					Ion.with(MsgsAdapter.this.mContext)
+			        .load(String.format("%s?msg=%s",ServerUtil.addUpMsgUrl, 
+			        		data.get(position).getId())).asJsonObject()
+					.setCallback(new FutureCallback<JsonObject>() {
+
+						@Override
+						public void onCompleted(Exception arg0, JsonObject arg1) {
+							// TODO Auto-generated method stub
+							if(arg0!=null || !"true".equals(arg1.get("suc").getAsString())){
+								Log.i("traffic", "failed");
+								
+							}
+						}
+						
+					});
+				}
+	        });
 	        
 	        holder.comgood_iv.setOnClickListener(new OnClickListener()
 	        {

@@ -500,23 +500,6 @@
                     android:layout_height="1dip"
                     android:background="@drawable/line" />
             </LinearLayout>
-            
-            <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/table_margin"
-            android:background="@color/table_background"
-            android:padding="@dimen/table_padding" >
-
-            <Button
-                android:id="@+id/refresh"
-                style="@style/text_black_18"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/row_height"
-                android:background="@drawable/row_selector"
-                android:gravity="center_vertical|center"
-                android:text="@string/text_refresh" />
-        	</LinearLayout>
         </LinearLayout>
     </ScrollView>
 

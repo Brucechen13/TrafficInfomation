@@ -62,10 +62,10 @@ public class BackNetService extends Service{
 		    public void onCompleted(Exception e, JsonArray result) {
 		        // do stuff with the result or error
 			   if(e != null){
-				   Log.d("traffic", e.toString());
+				   Log.d("traffic", "Service"+e.toString());
 				   return ;
 			   }
-			   Log.d("traffic",result.toString());	 
+			   Log.d("traffic","Service"+result.toString());	 
 			   for (int i = 0; i < result.size(); i++) {
 					JsonElement je = result.get(i);
 					JsonObject jo = je.getAsJsonObject();

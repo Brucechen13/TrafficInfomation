@@ -22,6 +22,7 @@ import com.tencent.tauth.UiError;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -66,9 +67,18 @@ public class LoginActivity extends Activity implements OnClickListener{
 		dataTips = (TextView) findViewById(R.id.dataloading); // 显示1.5秒钟后自动消失
 		user = new User();
 		SharedPreferences preferences = getSharedPreferences(Util.SHAREDPREFERENCES_NAME, MODE_PRIVATE);
+		if(preferences.getString("url", null)!=null){
+			ServerUtil.url = preferences.getString("url", null);
+		}else{
+			Editor editor = preferences.edit();
+			editor.putString("url", ServerUtil.url);
+			editor.commit();
+		}
 		if(preferences.getBoolean("zhanghao", false) && 
 				(preferences.getString("qq", null)!=null)){
 			validLogin(preferences.getString("qq", null));
+		}else{
+			
 		}
 	}
 

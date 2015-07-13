@@ -3,7 +3,7 @@
 
     <string name="app_name">分享交通</string>
     <string name="text_tab_message">地图</string>
-    <string name="text_tab_service">消息</string>
+    <string name="text_tab_service">列表</string>
     <string name="text_tab_profile">个人</string>
     <string name="text_tab_setting">设置</string>
     <string name="button_backward">返回</string>

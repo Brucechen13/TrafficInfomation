@@ -9,7 +9,7 @@ import com.dlut.traffic.LoginActivity;
 import com.dlut.traffic.R;
 import com.dlut.traffic.UserFriends;
 import com.dlut.traffic.R.id;
-import com.dlut.traffic.msg.UpdateInfo;
+import com.dlut.traffic.user.UpdateInfo;
 import com.dlut.traffic.user.User;
 import com.dlut.traffic.user.UserInfoView;
 import com.dlut.traffic.util.ServerUtil;
@@ -145,9 +145,7 @@ public class FragmentUser extends BaseFragment implements OnClickListener {
 		job_rl.setOnClickListener(this);
 		gender_rl = (RelativeLayout) view.findViewById(R.id.gender_rl);
 		gender_rl.setOnClickListener(this);
-		refresh = (Button) view.findViewById(R.id.refresh);
-		refresh.setOnClickListener(this);
-		
+
 		friends_rl = (RelativeLayout) view.findViewById(R.id.friends_rl);
 		friends_rl.setOnClickListener(this);
 		
@@ -172,9 +170,9 @@ public class FragmentUser extends BaseFragment implements OnClickListener {
 			break;
 
 		case R.id.gender_rl:
-			nickname = nick_name.getText().toString().trim();
+			gender = gender_tv.getText().toString().trim();
 			bundle.putString("title", "ÐÔ±ð");
-			bundle.putString("mimecontent", nickname);
+			bundle.putString("mimecontent", gender);
 			bundle.putInt("num", 15);
 			intent.putExtras(bundle);
 			startActivityForResult(intent, Util.GENDER);
@@ -286,24 +284,6 @@ public class FragmentUser extends BaseFragment implements OnClickListener {
 			startActivity(intent2);
 			break;
 		case R.id.msg_rl:
-			break;
-		case R.id.refresh:
-			Ion.with(FragmentUser.this)
-					.load(String.format("%s?qq=%s", ServerUtil.loginUrl,
-							Util.userId)).asJsonObject()
-					.setCallback(new FutureCallback<JsonObject>() {
-						@Override
-						public void onCompleted(Exception e, JsonObject result) {
-							// TODO Auto-generated method stub
-							if (e != null) {
-								Log.d("traffic", e.toString());
-								return;
-							}
-							Log.d("traffic", "login:" + result);
-							user.parseJson(result);
-							showText();
-						}
-					});
 			break;
 		case R.id.tou_rl:
 

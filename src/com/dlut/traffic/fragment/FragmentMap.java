@@ -4,16 +4,14 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.LocationManagerProxy;
 import com.amap.api.location.LocationProviderProxy;
-
-import com.amap.api.maps.AMap;
-import com.amap.api.maps.CameraUpdateFactory;
-import com.amap.api.maps.LocationSource;
-import com.amap.api.maps.MapView;
-import com.dlut.traffic.LoginActivity;
+import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.CameraUpdateFactory;
+import com.amap.api.maps2d.LocationSource;
+import com.amap.api.maps2d.LocationSource.OnLocationChangedListener;
+import com.amap.api.maps2d.MapView;
 import com.dlut.traffic.R;
 import com.dlut.traffic.msg.UploadMsg;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -51,6 +49,7 @@ public class FragmentMap extends BaseFragment implements LocationSource,
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
+		Log.d("traffic", "Map create");
 		super.onActivityCreated(savedInstanceState);
 		mapView = (MapView) getView().findViewById(R.id.map);
 		mapView.onCreate(savedInstanceState);// 此方法必须重写
@@ -64,6 +63,7 @@ public class FragmentMap extends BaseFragment implements LocationSource,
 	 */
 	private void init() {
 		if (aMap == null) {
+			Log.d("traffic", "Map init");
 			aMap = mapView.getMap();
 			aMap.setLocationSource(this);// 设置定位监听
 			aMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
@@ -71,16 +71,17 @@ public class FragmentMap extends BaseFragment implements LocationSource,
 			aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
 			// 设置定位的类型为定位模式：定位（AMap.LOCATION_TYPE_LOCATE）、跟随（AMap.LOCATION_TYPE_MAP_FOLLOW）
 			// 地图根据面向方向旋转（AMap.LOCATION_TYPE_MAP_ROTATE）三种模式
-			aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
+			//aMap.setMyLocationType(AMap.LOCATION_TYPE_LOCATE);
 		}
 
 	}
 
 	/**
 	 * 方法必须重写
-	 */
+	 */ 
 	@Override
 	public void onResume() {
+		Log.d("traffic", "Map Onresume");
 		super.onResume();
 		mapView.onResume();
 	}
@@ -90,6 +91,7 @@ public class FragmentMap extends BaseFragment implements LocationSource,
 	 */
 	@Override
 	public void onPause() {
+		Log.d("traffic", "Map onPause");
 		super.onPause();
 		mapView.onPause();
 		deactivate();
@@ -109,8 +111,9 @@ public class FragmentMap extends BaseFragment implements LocationSource,
 	 */
 	@Override
 	public void onDestroy() {
+		Log.d("traffic", "Map onDEstroy");
 		super.onDestroy();
-		mapView.onDestroy();
+//		mapView.onDestroy();
 	}
 
 	@Override
@@ -129,6 +132,7 @@ public class FragmentMap extends BaseFragment implements LocationSource,
 	@Override
 	public void activate(OnLocationChangedListener listener) {
 		mListener = listener;
+		Log.d("traffic", "Map activate");
 		if (mAMapLocationManager == null) {
 			mAMapLocationManager = LocationManagerProxy.getInstance(this
 					.getActivity());
@@ -184,14 +188,15 @@ public class FragmentMap extends BaseFragment implements LocationSource,
 		switch (v.getId()) {
 		case R.id.edit_info:
 			Bundle bundle = new Bundle();
-			bundle.putString("country", curLocation.getCountry());
+			Log.i("traffic", curLocation.getStreet());
+			bundle.putString("country", "中国");
 			bundle.putString("province", curLocation.getProvince());
 			bundle.putString("city", curLocation.getCity());
-			bundle.putString("road", curLocation.getRoad());
+			bundle.putString("road", curLocation.getStreet());
 			bundle.putString("address", curLocation.getAddress());
-			Log.i("info", curLocation.getAddress() + " "+ curLocation.getCountry() +
+			Log.i("info", curLocation.getAddress() + " "+
 					curLocation.getProvince() + " " + curLocation.getCity() 
-					+ " " + curLocation.getRoad());
+					+ " " + curLocation.getStreet());
 
 			Intent intent = new Intent(this.getActivity(), UploadMsg.class);
 			intent.putExtras(bundle);

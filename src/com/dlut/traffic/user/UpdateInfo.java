@@ -1,4 +1,4 @@
-package com.dlut.traffic.msg;
+package com.dlut.traffic.user;
 
 import com.dlut.traffic.R;
 import com.dlut.traffic.TitleActivity;

@@ -86,7 +86,7 @@ public class UserInfoView extends TitleActivity implements OnClickListener {
 	}
 	
 	private void showText() {
-		setTitle(user.getNickName()+"µÄ"+R.string.userInfo);
+		setTitle(user.getNickName()+"µÄ"+(String) this.getResources().getString(R.string.userInfo));
 		Ion.with(this).load(user.getPhoto()).withBitmap()
 		// .placeholder(R.drawable.placeholder_image)
 		.error(R.drawable.tou).intoImageView(detail_img)

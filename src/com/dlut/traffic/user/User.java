@@ -86,7 +86,7 @@ public class User implements Serializable {
 			this.setScore(Integer.parseInt(result.get("score").getAsString()));
 		}
 		if(result.has("company")){
-			this.setCompany(result.get("signature").getAsString());
+			this.setCompany(result.get("company").getAsString());
 		}
 		if(result.has("city")){
 			this.setCity(result.get("city").getAsString());

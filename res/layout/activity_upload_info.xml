@@ -5,48 +5,6 @@
     android:background="#f2f2f2"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dip"
-        android:gravity="center"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/lk"
-            style="@style/button_tra"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/row_height"
-            android:background="@drawable/black_btn_seletor"
-            android:gravity="center_vertical|center"
-            android:text="@string/lukuang" />
-
-        <Button
-            android:id="@+id/sg"
-            style="@style/button_tra"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/row_height"
-            android:background="@drawable/black_btn_seletor"
-            android:gravity="center_vertical|center"
-            android:text="@string/shigu" />
-
-        <Button
-            style="@style/button_tra"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/row_height"
-            android:background="@drawable/black_btn_seletor"
-            android:gravity="center_vertical|center"
-            android:text="@string/tucao" />
-
-        <Button
-            style="@style/button_tra"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/row_height"
-            android:background="@drawable/black_btn_seletor"
-            android:gravity="center_vertical|center"
-            android:text="@string/qiuzhu" />
-    </LinearLayout>
-
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"

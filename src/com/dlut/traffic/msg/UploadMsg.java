@@ -28,9 +28,8 @@ public class UploadMsg extends TitleActivity implements OnClickListener {
 	private RelativeLayout lukuang;
 	private RelativeLayout shigu;
 	
+	private Button send;
 	
-	private Button lkButton;
-	private Button sgButton;
 	private Bundle bundle;
 	
 	private String tra_sel;
@@ -56,14 +55,11 @@ public class UploadMsg extends TitleActivity implements OnClickListener {
 		//showForwardView(R.string.button_submit,true);
 		
 		bundle = this.getIntent().getExtras();
-		lkButton=(Button)findViewById(R.id.lk);
-		lkButton.setOnClickListener(this);
-		sgButton=(Button)findViewById(R.id.sg);
-		sgButton.setOnClickListener(this);
 		
 		((TextView)findViewById(R.id.place)).setText("当前位置:"+bundle.getString("address"));
 		
-		findViewById(R.id.send).setOnClickListener(this);
+		send = (Button)findViewById(R.id.send);
+		send.setOnClickListener(this);
 		
 		lukuang = (RelativeLayout)findViewById(R.id.lukuang);
 		shigu = (RelativeLayout)findViewById(R.id.shigu);
@@ -91,19 +87,12 @@ public class UploadMsg extends TitleActivity implements OnClickListener {
 		// TODO Auto-generated method stub
 		super.onClick(v);
 		switch (v.getId()) {
-		   case R.id.lk:
-			   shigu.setVisibility(View.GONE);
-			   lukuang.setVisibility(View.VISIBLE);
-			   break;
-		   case R.id.sg:
-			   lukuang.setVisibility(View.GONE);
-			   shigu.setVisibility(View.VISIBLE);
-			   break;
 		   case R.id.send:
 			   if(tra_sel == null){
 				   Util.toastMessage(this, "请选择当前交通状况！");
 				   break;
 			   }
+			   send.setClickable(false);
 			   pushMsg();
 			   break;
 		   default:

@@ -11,6 +11,7 @@ import com.dlut.traffic.TitleActivity;
 import com.dlut.traffic.adapter.CommentBean;
 import com.dlut.traffic.adapter.MsgBean;
 import com.dlut.traffic.adapter.MsgCommentsAdapter;
+import com.dlut.traffic.adapter.MsgsAdapter;
 import com.dlut.traffic.util.ServerUtil;
 import com.dlut.traffic.util.UrlParse;
 import com.dlut.traffic.util.Util;
@@ -48,6 +49,8 @@ public class TraffficMsgDetail extends TitleActivity implements OnClickListener 
 	private int offset = 0;
 	private Date date;
 	private static SimpleDateFormat sfd = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	
+	private boolean start = true;
 	
 	private ImageView userimg_iv;
     private TextView username;
@@ -167,6 +170,43 @@ public class TraffficMsgDetail extends TitleActivity implements OnClickListener 
                 
             }
         });
+        
+        this.good_img.setOnClickListener(new OnClickListener()
+        {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Log.i("traffic", "good num");
+				String num = msg.getGoodNum();
+				msg.setGoodNum(String.valueOf(Integer.parseInt(num)+1));
+				TraffficMsgDetail.this.good_num.setText(msg.getGoodNum());
+				TraffficMsgDetail.this.good_img.setVisibility(View.GONE);
+				Ion.with(TraffficMsgDetail.this)
+		        .load(String.format("%s?msg=%s",ServerUtil.addUpMsgUrl, 
+		        		msg.getId())).asJsonObject()
+				.setCallback(new FutureCallback<JsonObject>() {
+
+					@Override
+					public void onCompleted(Exception arg0, JsonObject arg1) {
+						// TODO Auto-generated method stub
+						if(arg0!=null || !"true".equals(arg1.get("toupic").getAsString())){
+							Log.i("traffic", "failed");
+						}
+					}
+					
+				});
+			}
+        });
+        
+        this.comment_img.setOnClickListener(new OnClickListener()
+        {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(TraffficMsgDetail.this, "点击下方文本框输入评论",
+						Toast.LENGTH_SHORT).show();
+			}
+        });
+        
 		
 		adapter = new MsgCommentsAdapter(this, getComments(null));
 		commentsList = (PullToRefreshListView)findViewById(R.id.commentsList);
@@ -200,7 +240,7 @@ public class TraffficMsgDetail extends TitleActivity implements OnClickListener 
 					return;
 				}
 				JsonArray comments = arg1.get("comments").getAsJsonArray();
-				if(comments.size()==0){
+				if(!start && comments.size()==0){
 					Toast.makeText(TraffficMsgDetail.this, "已经没有数据啦",
 							Toast.LENGTH_SHORT).show();
 					commentsList.onRefreshComplete(); 
@@ -211,6 +251,7 @@ public class TraffficMsgDetail extends TitleActivity implements OnClickListener 
 				adapter.notifyDataSetChanged();
 				commentsList.onRefreshComplete();   
 				offset+=comments.size();
+				start = false;
 			}
 		});
 	}
@@ -311,6 +352,8 @@ public class TraffficMsgDetail extends TitleActivity implements OnClickListener 
 		case R.id.send:
 			String cText = text.getText().toString().trim();
 			Log.d("traffic", cText);
+			this.comment_num.setText(String.valueOf(Integer.parseInt(
+					msg.getCommentNum())+1));
 			Ion.with(TraffficMsgDetail.this)
 	        .load(String.format("%s?user=%s&msg=%s&content=%s",ServerUtil.addCommentUrl, 
 	        		Util.userId, msg.getId(), cText)).asJsonObject()
@@ -334,5 +377,4 @@ public class TraffficMsgDetail extends TitleActivity implements OnClickListener 
 			break;
 		}
 	}
-
 }
